@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">MusicApp</string>
+    <string name="home">主頁面</string>
+    <string name="searchPage">搜尋頁面</string>
+    <string name="trackListPage">所有歌曲</string>
+    <string name="albumListPage">所有專輯</string>
+    <string name="playListPage">所有歌曲列表</string>
+    <string name="settingPage">設定頁面</string>
+    <string name="collectedPage">我的收藏</string>
+    <string name="trackDetailPage">歌曲詳細介紹</string>
+    <string name="albumDetailPage">專輯詳細介紹</string>
+    <string name="recommendPage">推薦清單</string>
+    <string name="musicPlayerPage">音樂播放</string>
+    <string name="localMusicFilePage">音樂播放資料夾</string>
+    <string name="localMusicFileEditPage">音樂播放資料夾編輯</string>
+    <string name="localMusicFileContentPage">音樂播放資料夾歌曲</string>
+    <string name="localMusicFileContentEditPage">音樂播放資料夾歌曲編輯</string>
+    <string name="search_icon">搜尋</string>
+    <string name="recommend_icon">推薦</string>
+    <string name="home_icon">主頁面</string>
+    <string name="music_player_icon">播放</string>
+    <string name="personal_icon">個人</string>
 </resources>
