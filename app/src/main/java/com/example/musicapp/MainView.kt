@@ -1,7 +1,11 @@
 package com.example.musicapp
 
 import android.app.Activity
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
@@ -12,6 +16,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.musicapp.page.HomePage
@@ -23,15 +28,27 @@ import com.example.musicapp.routing.Screen
 import com.example.musicapp.theme.Theme
 import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationBar
 import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationItem
+import com.example.musicapp.viewmodel.HomeViewModel
+import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
+@ExperimentalComposeUiApi
+@ExperimentalMaterialApi
+@ExperimentalPagerApi
+@ExperimentalFoundationApi
+@RequiresApi(Build.VERSION_CODES.O)
 fun MainView(){
     Theme {
         AppContent()
     }
  }
 @Composable
+@ExperimentalComposeUiApi
+@ExperimentalMaterialApi
+@ExperimentalPagerApi
+@ExperimentalFoundationApi
+@RequiresApi(Build.VERSION_CODES.O)
 fun AppContent() {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val isNavigationPageHidden = remember { mutableStateOf(false) }
@@ -56,6 +73,11 @@ fun AppContent() {
 }
 
 @Composable
+@ExperimentalComposeUiApi
+@ExperimentalMaterialApi
+@ExperimentalPagerApi
+@ExperimentalFoundationApi
+@RequiresApi(Build.VERSION_CODES.O)
 fun MainScreenContainer(
     screenStack : ArrayList<Screen>,
     modifier: Modifier = Modifier,
@@ -68,7 +90,8 @@ fun MainScreenContainer(
         when(screenState.value){
             Screen.Home -> {
                 isNavigationPageHidden.value = false
-                HomePage { screen -> Navigate(
+                val viewModel = viewModel<HomeViewModel>()
+                HomePage(viewModel) { screen -> Navigate(
                     screenStack = screenStack,
                     screenState = screenState,
                     page = screen)

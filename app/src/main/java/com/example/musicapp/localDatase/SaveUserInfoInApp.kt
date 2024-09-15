@@ -1,4 +1,4 @@
-package com.example.musicapp.localDataase
+package com.example.musicapp.localDatase
 
 import android.content.Context
 

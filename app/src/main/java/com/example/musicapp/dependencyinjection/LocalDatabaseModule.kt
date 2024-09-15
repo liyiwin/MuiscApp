@@ -1,10 +1,10 @@
 package com.example.musicapp.dependencyinjection
 
 import android.content.Context
-import com.example.musicapp.localDataase.ISaveAppSettingInApp
-import com.example.musicapp.localDataase.ISaveUserInfoInApp
-import com.example.musicapp.localDataase.SaveAppSettingInApp
-import com.example.musicapp.localDataase.SaveUserInfoInApp
+import com.example.musicapp.localDatase.ISaveAppSettingInApp
+import com.example.musicapp.localDatase.ISaveUserInfoInApp
+import com.example.musicapp.localDatase.SaveAppSettingInApp
+import com.example.musicapp.localDatase.SaveUserInfoInApp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
