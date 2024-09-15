@@ -3,7 +3,7 @@ package com.example.musicapp.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.musicapp.data.bean.PlayList
+import com.example.musicapp.bean.remote.PlayList
 import com.example.musicapp.data.repository.IFetchDataRepository
 import com.example.musicapp.data.requestResult.RequestResultWithData
 import com.example.musicapp.viewmodel.state.RequestState

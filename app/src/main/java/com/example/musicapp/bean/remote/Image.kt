@@ -1,4 +1,4 @@
-package com.example.musicapp.data.bean
+package com.example.musicapp.bean.remote
 
 data class Image (
     val height:Int,

@@ -1,4 +1,6 @@
-package com.example.musicapp.data.bean
+package com.example.musicapp.bean.remote
+
+import com.example.musicapp.bean.remote.Image
 
 data class Owner(
     val id:String,

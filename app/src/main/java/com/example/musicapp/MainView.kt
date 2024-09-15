@@ -18,17 +18,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.key.Key.Companion.Back
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.musicapp.localDatase.RouterDataStorage
 import com.example.musicapp.page.HomePage
 import com.example.musicapp.page.MusicPlayerPage
 import com.example.musicapp.page.RecommendPage
 import com.example.musicapp.page.SearchPage
 import com.example.musicapp.page.SettingPage
+import com.example.musicapp.page.TrackListPage
 import com.example.musicapp.routing.Screen
 import com.example.musicapp.theme.Theme
 import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationBar
 import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationItem
 import com.example.musicapp.viewmodel.HomeViewModel
+import com.example.musicapp.viewmodel.TrackListViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.CoroutineScope
 
@@ -82,7 +86,8 @@ fun MainScreenContainer(
     screenStack : ArrayList<Screen>,
     modifier: Modifier = Modifier,
     screenState: MutableState<Screen>,
-    isNavigationPageHidden :MutableState<Boolean>){
+    isNavigationPageHidden :MutableState<Boolean>
+    ){
     Surface(
         modifier = modifier,
         color = MaterialTheme.colors.background
@@ -131,6 +136,22 @@ fun MainScreenContainer(
                     page = screen)
                 }
             }
+            Screen.TrackListScreen  ->   {
+                isNavigationPageHidden.value = true
+                val viewModel = viewModel<TrackListViewModel>()
+                TrackListPage(viewModel,
+                    onBackPress = {
+                        RouterDataStorage.popTrackListTransferData()
+                        Back( screenStack = screenStack, screenState = screenState)
+                    },
+                    navigationController = { screen -> Navigate(
+                        screenStack = screenStack,
+                        screenState = screenState,
+                        page = screen)
+                    }
+                )
+            }
+
         }
     }
 }
@@ -184,4 +205,9 @@ fun Navigate(screenStack : ArrayList<Screen>,screenState: MutableState<Screen> ,
         screenStack.add(screenState.value)
     }
     screenState.value = page
+}
+
+fun Back(screenStack : ArrayList<Screen>,screenState: MutableState<Screen>){
+    screenState.value = screenStack.last()
+    screenStack.removeLast()
 }

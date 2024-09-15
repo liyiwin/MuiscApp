@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GetRequestInterface {
@@ -24,4 +25,44 @@ interface GetRequestInterface {
     fun getNewHitsPlayLists(@Query("territory")  territory:String, @Header("Authorization") token:String): Call<ResponseBody>;
 
 
+    @GET("/v1.1/charts/{playlist_id}")
+    @Headers("Content-Type: application/json")
+    fun getTracksInChart(
+        @Path("playlist_id") playListId:String,
+        @Query("offset") offset:String,
+        @Query("limit") limit:String,
+        @Query("territory")  territory:String,
+        @Header("Authorization") token:String
+    ): Call<ResponseBody>;
+
+    @GET("/v1.1/featured-playlists/{playlist_id}")
+    @Headers("Content-Type: application/json")
+    fun getTracksInFeaturedPlayList(
+        @Path("playlist_id") playListId:String,
+        @Query("offset") offset:String,
+        @Query("limit") limit:String,
+        @Query("territory")  territory:String,
+        @Header("Authorization") token:String
+    ): Call<ResponseBody>;
+
+    @GET("/v1.1/new-hits-playlists/{playlist_id}")
+    @Headers("Content-Type: application/json")
+    fun getTracksInNewHitsPlayList(
+        @Path("playlist_id") playListId:String,
+        @Query("offset") offset:String,
+        @Query("limit") limit:String,
+        @Query("territory")  territory:String,
+        @Header("Authorization") token:String
+    ): Call<ResponseBody>;
+
+
+    @GET("/v1.1/artists/{artist_id}/top-tracks")
+    @Headers("Content-Type: application/json")
+    fun getTopTracksOfArtist(
+        @Path("artist_id") artistId:String,
+        @Query("offset") offset:String,
+        @Query("limit") limit:String,
+        @Query("territory")  territory:String,
+        @Header("Authorization") token:String
+    ): Call<ResponseBody>;
 }

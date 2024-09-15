@@ -42,10 +42,12 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.kkbox_music_app.components.dialog.FailureDialog
 import com.example.kkbox_music_app.components.dialog.LoadingDialog
 import com.example.kkbox_music_app.components.dialog.SuccessDialog
+import com.example.musicapp.bean.local.TrackListTransferData
 import com.example.musicapp.components.GridViewPager
 import com.example.musicapp.components.drawDropShadow
 import com.example.musicapp.components.drawInnerShadow
-import com.example.musicapp.data.bean.PlayList
+import com.example.musicapp.bean.remote.PlayList
+import com.example.musicapp.localDatase.RouterDataStorage
 import com.example.musicapp.routing.Screen
 import com.example.musicapp.viewmodel.HomeViewModel
 import com.example.musicapp.viewmodel.state.RequestState
@@ -78,14 +80,17 @@ fun HomePage(viewModel: HomeViewModel, navigationController:(screen: Screen)->Un
         ){
             ChartList(viewModel,
                 onChartSelected = { it ->
-
+                    RouterDataStorage.putTrackListTransferData(TrackListTransferData.ChartPlayListTracksTransferData(it.id))
+                    navigationController.invoke(Screen.TrackListScreen)
                 })
             MainContainer(viewModel,
                 onFeaturedListSelected = {
-
+                    RouterDataStorage. putTrackListTransferData(TrackListTransferData.FeaturedPlayListTracksTransferData(it.id))
+                    navigationController.invoke(Screen.TrackListScreen)
                 },
                 onHitPlayListSelected = {
-
+                    RouterDataStorage. putTrackListTransferData(TrackListTransferData.FeaturedPlayListTracksTransferData(it.id))
+                    navigationController.invoke(Screen.TrackListScreen)
                 }
             )
         }

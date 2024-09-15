@@ -1,6 +1,8 @@
 package com.example.musicapp.data.dao.RequestResultConverter
 
-import com.example.musicapp.data.bean.PlayList
+import com.example.musicapp.bean.remote.PlayList
+import com.example.musicapp.bean.remote.PlayListContent
+import com.example.musicapp.bean.remote.Track
 import com.example.musicapp.data.requestResult.RequestResultWithData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -33,6 +35,53 @@ class NewHitsPlayListGetRequestResultConverter:GetRequestResultConverter() {
     }
 
     fun convertGetTotalNewHitsPlayListsOnFailure(call: Call<ResponseBody>, t: Throwable):RequestResultWithData<List<PlayList>> {
+        val failureMessage = ConvertResponseFailureMessage(call,t)
+        return RequestResultWithData.Failure(failureMessage)
+    }
+
+    fun convertGetTracksInNewHitsPlayListOnResponse(response:Response<ResponseBody>):RequestResultWithData<PlayListContent>{
+        val responseCode = response.code();
+        if(responseCode >= 300 ){
+            val errorMessage = ConvertResponseErrorMessage(response)
+            return RequestResultWithData.Error(errorMessage)
+        }
+        else{
+            try{
+                val body = response.body();
+                val jsonObject = getJsonObjectFromResponseBody(body);
+                val tracks = jsonObject.getJSONObject("tracks");
+                val data = tracks.getJSONArray("data");
+                val paging = tracks.getJSONObject("paging");
+                val summary = tracks.getJSONObject("summary")
+                val offset = paging.getInt("offset");
+                val total = summary.getInt("total");
+                val id = jsonObject.getString("id");
+                val title =  jsonObject.getString("title")
+                return when {
+                    total == 0 -> {
+                        val content = PlayListContent( id = id, title =title,  tracks = listOf() )
+                        RequestResultWithData.Success("已到達最後一頁", content)
+                    }
+                    offset == total-1 -> {
+                        val type = object: TypeToken<List<Track>>() {}.type
+                        val trackList = gson.fromJson<List<Track>>(data.toString(),type)
+                        val content =  PlayListContent( id = id, title =title, tracks = trackList)
+                        RequestResultWithData.Success("已到達最後一頁", content)
+                    }
+                    else -> {
+                        val type = object: TypeToken<List<Track>>() {}.type
+                        val trackList = gson.fromJson<List<Track>>(data.toString(),type)
+                        val content = PlayListContent(id = id,title = title, tracks = trackList)
+                        RequestResultWithData.Success("Success !", content)
+                    }
+                }
+            }catch (e:Exception){
+                return RequestResultWithData.Error("Api 回傳資料轉換失敗，$e");
+            }
+        }
+    }
+
+    fun convertGetTracksInNewHitsPlayListOnFailure(call: Call<ResponseBody>, t: Throwable):RequestResultWithData<PlayListContent>{
         val failureMessage = ConvertResponseFailureMessage(call,t)
         return RequestResultWithData.Failure(failureMessage)
     }
