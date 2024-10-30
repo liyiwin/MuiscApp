@@ -4,7 +4,12 @@ import android.app.Activity
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -62,6 +67,7 @@ fun AppContent() {
 
     Scaffold (
         scaffoldState = scaffoldState,
+        modifier = Modifier.windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Bottom)),
         bottomBar = {
             if(!isNavigationPageHidden.value){
                 BottomNavigationComponent(screenStack = screenStack,screenState = screenState,selectedIndex = bottomBarSelectedIndex)
@@ -209,5 +215,5 @@ fun Navigate(screenStack : ArrayList<Screen>,screenState: MutableState<Screen> ,
 
 fun Back(screenStack : ArrayList<Screen>,screenState: MutableState<Screen>){
     screenState.value = screenStack.last()
-    screenStack.removeLast()
+    screenStack.removeAt(screenStack.count()-1)
 }

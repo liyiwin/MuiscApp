@@ -59,7 +59,7 @@ fun BottomNavigationBar(selectedIndex:Int, modifier: Modifier, items:List<Bottom
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(100.dp)
+            .height(70.dp)
             . clickable {  },
         contentAlignment = Alignment.BottomEnd,
     ) {
@@ -77,9 +77,9 @@ fun BottomNavigationBar(selectedIndex:Int, modifier: Modifier, items:List<Bottom
                 val widthOfOne = size.width / 5
                 val centerWidthOfOneX = widthOfOne / 2+widthOfOne * indexValue
                 canvas.save()
-                canvas.drawCircle(Offset(centerWidthOfOneX, 0f), 60f, paint)
+                canvas.drawCircle(Offset(centerWidthOfOneX, widthOfOne/6), widthOfOne/3, paint)
 
-                val CURVE_CIRCLE_RADIUS = 60
+                val CURVE_CIRCLE_RADIUS =(widthOfOne/2.3).toInt()
 
                 var mFirstCurveStartPoint = Point();
                 var mFirstCurveEndPoint = Point();
@@ -153,10 +153,10 @@ fun BottomNavigationBar(selectedIndex:Int, modifier: Modifier, items:List<Bottom
             items.forEach{
                 Text(
                     color = Color.DarkGray,
-                    fontSize = 10.sp,
+                    fontSize = 12.sp,
                     text = stringResource(id = it.descriptionResourceId),
                     textAlign = TextAlign.Center,
-                    modifier = modifier.padding(start = 2.dp,top =8.dp,bottom = 8.dp).width(50.dp)
+                    modifier = modifier.padding(start = 2.dp,top =10.dp,bottom = 5.dp).width(50.dp)
                 )
             }
 
@@ -172,13 +172,13 @@ fun modifier(
 ): Modifier {
     return if (animalCenterIndex.value == i) {
         return Modifier
-            .padding(bottom = 57.dp)
+            .padding(bottom = 45.dp)
             .width(25.dp)
             .height(25.dp)
             .rotate(animalBooleanState * 360)
     } else {
         return Modifier
-            .padding(top = 30.dp)
+            .padding(top = 15.dp)
             .width(25.dp)
             .height(25.dp)
     }

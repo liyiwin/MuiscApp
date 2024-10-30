@@ -12,7 +12,7 @@ object RouterDataStorage {
     }
 
     fun popTrackListTransferData(){
-        if(trackListTransferDataStack.isNotEmpty()) trackListTransferDataStack.removeLast()
+        if(trackListTransferDataStack.isNotEmpty()) trackListTransferDataStack.removeAt(trackListTransferDataStack.count()-1)
     }
 
     fun getTrackListTransferData(): TrackListTransferData?{
@@ -24,7 +24,7 @@ object RouterDataStorage {
     }
 
     fun popTrack(){
-        if(trackStack.isNotEmpty()) trackStack.removeLast()
+        if(trackStack.isNotEmpty()) trackStack.removeAt(trackStack.count()-1)
     }
 
     fun getTrack():Track? {
