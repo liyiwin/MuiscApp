@@ -50,12 +50,11 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-
+    implementation 'com.google.accompanist:accompanist-drawablepainter:0.35.0-alpha'
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22"
@@ -69,6 +68,7 @@ dependencies {
     // Auto value
     implementation "com.google.auto.value:auto-value-annotations:1.10.1"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.activity:activity:1.9.3'
     kapt "com.google.auto.value:auto-value:1.10.1"
 
     // Nav
