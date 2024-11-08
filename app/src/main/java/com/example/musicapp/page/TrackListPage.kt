@@ -145,7 +145,7 @@ fun TrackListPageTitle(pageTitle:String,onBackPress:()->Unit){
             color = Color(0xFFF3F3F3),
             onClick = { onBackPress.invoke() }) {
             Image(
-                painter = painterResource(id = R.drawable.ic_back),
+                painter = painterResource(id = R.drawable.ic_back_black),
                 contentDescription = "",
                 modifier = Modifier
                     .height(40.dp)
