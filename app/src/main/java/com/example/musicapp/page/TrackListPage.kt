@@ -69,9 +69,8 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @ExperimentalMaterialApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun TrackListPage(viewModel: TrackListViewModel, onBackPress:()->Unit, navigationController:(screen: Screen)->Unit){
+fun TrackListPage(pageTitle:String , viewModel: TrackListViewModel, onBackPress:()->Unit, navigationController:(screen: Screen)->Unit){
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
-
     viewModel.resetData()
     viewModel.UpdatePlayList()
     RequestStateDialog(viewModel)
@@ -90,7 +89,7 @@ fun TrackListPage(viewModel: TrackListViewModel, onBackPress:()->Unit, navigatio
                 .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top)),
 
         ) {
-            TrackListPageTitle(onBackPress = onBackPress)
+            TrackListPageTitle(pageTitle,onBackPress = onBackPress)
             TrackListMainContainer(viewModel, OnSelected = {
 
             })
@@ -135,7 +134,7 @@ fun RequestStateDialog(viewModel: TrackListViewModel){
 
 @ExperimentalMaterialApi
 @Composable
-fun TrackListPageTitle(onBackPress:()->Unit){
+fun TrackListPageTitle(pageTitle:String,onBackPress:()->Unit){
     Row(
         horizontalArrangement = Arrangement.Start,
         modifier = Modifier
@@ -156,7 +155,7 @@ fun TrackListPageTitle(onBackPress:()->Unit){
         }
         Text(
             fontSize = 20.sp,
-            text = "所有歌曲",
+            text = pageTitle,
             textAlign = TextAlign.Center,
             color = Color.Black,
             modifier = Modifier

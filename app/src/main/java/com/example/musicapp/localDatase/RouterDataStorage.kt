@@ -7,6 +7,7 @@ object RouterDataStorage {
 
     val  trackListTransferDataStack = ArrayList<TrackListTransferData>()
     val trackStack = ArrayList<Track>()
+    val tracklistTitle = ArrayList<String>()
     fun putTrackListTransferData(data:TrackListTransferData){
         trackListTransferDataStack.add(data)
     }
@@ -25,6 +26,21 @@ object RouterDataStorage {
 
     fun popTrack(){
         if(trackStack.isNotEmpty()) trackStack.removeAt(trackStack.count()-1)
+    }
+
+    fun putTrackListTitle( title:String){
+        tracklistTitle.add(title)
+    }
+
+    fun removeCurrentTrackListTitle(){
+          if(!tracklistTitle.isEmpty() ){
+              tracklistTitle.removeAt(tracklistTitle.size-1)
+          }
+    }
+
+    fun getTrackListTitle():String{
+        if(!tracklistTitle.isEmpty() )return tracklistTitle[tracklistTitle.size-1]
+       else return ""
     }
 
     fun getTrack():Track? {

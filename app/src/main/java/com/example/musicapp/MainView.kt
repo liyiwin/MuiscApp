@@ -102,7 +102,9 @@ fun MainScreenContainer(
             Screen.Home -> {
                 isNavigationPageHidden.value = false
                 val viewModel = viewModel<HomeViewModel>()
-                HomePage(viewModel) { screen -> Navigate(
+                HomePage(viewModel) { screen,pageTitle ->
+                    RouterDataStorage.putTrackListTitle(pageTitle);
+                    Navigate(
                     screenStack = screenStack,
                     screenState = screenState,
                     page = screen)
@@ -145,8 +147,11 @@ fun MainScreenContainer(
             Screen.TrackListScreen  ->   {
                 isNavigationPageHidden.value = true
                 val viewModel = viewModel<TrackListViewModel>()
-                TrackListPage(viewModel,
+                TrackListPage(
+                    RouterDataStorage.getTrackListTitle()
+                    ,viewModel,
                     onBackPress = {
+                        RouterDataStorage.removeCurrentTrackListTitle()
                         RouterDataStorage.popTrackListTransferData()
                         Back( screenStack = screenStack, screenState = screenState)
                     },

@@ -66,7 +66,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @ExperimentalFoundationApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HomePage(viewModel: HomeViewModel, navigationController:(screen: Screen)->Unit){
+fun HomePage(viewModel: HomeViewModel, navigationController:(screen: Screen,pageTitle:String)->Unit){
 
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
 
@@ -88,16 +88,16 @@ fun HomePage(viewModel: HomeViewModel, navigationController:(screen: Screen)->Un
             ChartList(viewModel,
                 onChartSelected = { it ->
                     RouterDataStorage.putTrackListTransferData(TrackListTransferData.ChartPlayListTracksTransferData(it.id))
-                    navigationController.invoke(Screen.TrackListScreen)
+                    navigationController.invoke(Screen.TrackListScreen(),it.title)
                 })
             MainContainer(viewModel,
                 onFeaturedListSelected = {
                     RouterDataStorage. putTrackListTransferData(TrackListTransferData.FeaturedPlayListTracksTransferData(it.id))
-                    navigationController.invoke(Screen.TrackListScreen)
+                    navigationController.invoke(Screen.TrackListScreen(),it.title)
                 },
                 onHitPlayListSelected = {
                     RouterDataStorage. putTrackListTransferData(TrackListTransferData.FeaturedPlayListTracksTransferData(it.id))
-                    navigationController.invoke(Screen.TrackListScreen)
+                    navigationController.invoke(Screen.TrackListScreen(),it.title)
                 }
             )
         }
