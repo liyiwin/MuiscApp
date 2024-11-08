@@ -10,7 +10,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 
-class FeaturedPlayListGetRequestConverter : GetRequestResultConverter() {
+class FeaturedPlayListRequestConverter : RequestResultConverter() {
 
     private val gson = Gson()
     fun ConvertGetTotalFeaturedPlayListOnResponse(response: Response<ResponseBody>): RequestResultWithData<List<PlayList>> {

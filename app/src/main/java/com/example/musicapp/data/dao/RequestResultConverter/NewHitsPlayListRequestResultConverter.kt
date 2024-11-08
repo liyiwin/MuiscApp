@@ -10,7 +10,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 
-class NewHitsPlayListGetRequestResultConverter:GetRequestResultConverter() {
+class NewHitsPlayListRequestResultConverter:RequestResultConverter() {
 
     private val gson = Gson()
 

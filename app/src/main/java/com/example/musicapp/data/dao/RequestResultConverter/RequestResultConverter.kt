@@ -9,7 +9,7 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.nio.charset.Charset
 
-open class GetRequestResultConverter {
+open class RequestResultConverter {
 
     protected fun ConvertResponseErrorMessage(response: Response<ResponseBody>):String{
         try{

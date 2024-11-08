@@ -8,7 +8,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 
-class FoundationDataGetRequestResultConverter:GetRequestResultConverter() {
+class FoundationDataRequestResultConverter:RequestResultConverter() {
 
     private val gson = Gson()
 
