@@ -62,7 +62,7 @@ fun AppContent() {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val isNavigationPageHidden = remember { mutableStateOf(false) }
     val screenStack = remember{ArrayList<Screen>()}
-    val screenState = remember { mutableStateOf<Screen>(Screen.Home) }
+    val screenState = remember { mutableStateOf<Screen>(Screen.Home()) }
     val bottomBarSelectedIndex = remember { mutableStateOf<Int>(2) }
 
     Scaffold (
@@ -99,7 +99,7 @@ fun MainScreenContainer(
         color = MaterialTheme.colors.background
     ) {
         when(screenState.value){
-            Screen.Home -> {
+            is    Screen.Home -> {
                 isNavigationPageHidden.value = false
                 val viewModel = viewModel<HomeViewModel>()
                 HomePage(viewModel) { screen,pageTitle ->
@@ -110,7 +110,7 @@ fun MainScreenContainer(
                     page = screen)
                 }
             }
-            Screen.SearchScreen -> {
+            is  Screen.SearchScreen -> {
                 isNavigationPageHidden.value = false
                 SearchPage{ screen -> Navigate(
                     screenStack = screenStack,
@@ -119,7 +119,7 @@ fun MainScreenContainer(
                 }
             }
 
-            Screen.SettingScreen -> {
+            is  Screen.SettingScreen -> {
                 isNavigationPageHidden.value = false
                 SettingPage{ screen -> Navigate(
                     screenStack = screenStack,
@@ -128,7 +128,7 @@ fun MainScreenContainer(
                 }
             }
 
-            Screen.RecommendScreen -> {
+            is   Screen.RecommendScreen -> {
                 isNavigationPageHidden.value = false
                 RecommendPage{ screen -> Navigate(
                     screenStack = screenStack,
@@ -136,7 +136,7 @@ fun MainScreenContainer(
                     page = screen)
                 }
             }
-            Screen.MusicPlayerScreen -> {
+            is  Screen.MusicPlayerScreen -> {
                 isNavigationPageHidden.value = false
                 MusicPlayerPage{ screen -> Navigate(
                     screenStack = screenStack,
@@ -144,7 +144,7 @@ fun MainScreenContainer(
                     page = screen)
                 }
             }
-            Screen.TrackListScreen  ->   {
+            is   Screen.TrackListScreen  ->   {
                 isNavigationPageHidden.value = true
                 val viewModel = viewModel<TrackListViewModel>()
                 TrackListPage(
@@ -179,23 +179,23 @@ fun BottomNavigationComponent(
         BottomNavigationItem(0,
             R.drawable.ic_search_selected,
             R.drawable.ic_search_grey,
-            R.string.search_icon, Screen.SearchScreen),
+            R.string.search_icon, Screen.SearchScreen()),
         BottomNavigationItem(1,
             R.drawable.ic_recommend_selected,
             R.drawable.ic_recommend,
-            R.string.recommend_icon, Screen.RecommendScreen),
+            R.string.recommend_icon, Screen.RecommendScreen()),
         BottomNavigationItem(2,
             R.drawable.ic_home_selected,
             R.drawable.ic_home,
-            R.string.home_icon, Screen.Home),
+            R.string.home_icon, Screen.Home()),
         BottomNavigationItem(3,
             R.drawable.ic_music_player_selected,
             R.drawable.ic_music_player,
-            R.string.music_player_icon, Screen.MusicPlayerScreen),
+            R.string.music_player_icon, Screen.MusicPlayerScreen()),
         BottomNavigationItem(4,
             R.drawable.ic_personal_selected,
             R.drawable.ic_personal_grey,
-            R.string.personal_icon, Screen.SettingScreen),
+            R.string.personal_icon, Screen.SettingScreen()),
     )
     BottomNavigationBar(selectedIndex.value,modifier,items){
         selectedIndex.value = items.indexOf(it)
@@ -208,10 +208,10 @@ fun BottomNavigationComponent(
 }
 
 fun Navigate(screenStack : ArrayList<Screen>,screenState: MutableState<Screen> , page:Screen){
-    if(   page != Screen.SearchScreen
-        &&  page != Screen.RecommendScreen
-        &&  page != Screen.Home
-        &&  page != Screen.SettingScreen
+    if(   page !is Screen.SearchScreen
+        &&  page!is Screen.RecommendScreen
+        &&  page !is Screen.Home
+        &&  page !is Screen.SettingScreen
     ){
         screenStack.add(screenState.value)
     }

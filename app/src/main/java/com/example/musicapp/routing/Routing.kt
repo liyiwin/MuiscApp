@@ -4,17 +4,17 @@ import com.example.musicapp.R
 
 sealed class  Screen(val titleResId:Int){
 
-    object Home:Screen(R.string.home)
+    class Home:Screen(R.string.home)
 
-    object SearchScreen:Screen(R.string.searchPage)
+    class SearchScreen:Screen(R.string.searchPage)
 
-    object RecommendScreen:Screen(R.string.recommendPage)
+    class RecommendScreen:Screen(R.string.recommendPage)
 
-    object MusicPlayerScreen:Screen(R.string.musicPlayerPage)
+    class MusicPlayerScreen:Screen(R.string.musicPlayerPage)
 
-    object SettingScreen:Screen(R.string.settingPage)
+    class SettingScreen:Screen(R.string.settingPage)
 
-    object TrackListScreen:Screen(R.string.trackListPage)
+    class TrackListScreen:Screen(R.string.trackListPage)
 
 
 }
