@@ -136,7 +136,6 @@ fun RequestStateDialog(viewModel: TrackListViewModel){
 @Composable
 fun TrackListPageTitle(pageTitle:String,onBackPress:()->Unit){
     Row(
-        horizontalArrangement = Arrangement.Start,
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 10.dp)
@@ -150,28 +149,32 @@ fun TrackListPageTitle(pageTitle:String,onBackPress:()->Unit){
                 modifier = Modifier
                     .height(40.dp)
                     .width(40.dp)
-                    .padding(top = 10.dp),
+                    .padding(top = 10.dp)
+                    .weight(1f)
             )
         }
-        Text(
-            fontSize = 20.sp,
-            text = pageTitle,
-            textAlign = TextAlign.Center,
-            color = Color.Black,
-            modifier = Modifier
-                .padding(start = 70.dp, top = 8.dp, bottom = 8.dp)
-                .align(Alignment.CenterVertically)
 
-        )
         Image(
             painter = painterResource(id = R.drawable.ic_hit_tracks),
             contentDescription = "",
             modifier = Modifier
                 .height(40.dp)
                 .width(40.dp)
-                .padding(top = 10.dp)
                 .align(Alignment.CenterVertically)
+                .padding(top = 8.dp, start = 5.dp,end = 5.dp)
+                .weight(2f)
         )
+        Text(
+            fontSize = 20.sp,
+            text = pageTitle,
+            textAlign = TextAlign.Start,
+            color = Color.Black,
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .padding( top = 8.dp, bottom = 8.dp)
+                .weight(6f)
+
+       )
     }
 }
 
@@ -298,8 +301,8 @@ fun TrackItem(track: Track, OnSelected:(Track)->Unit){
                                 bottom = (itemHeight - 50.dp) / 2,
                                 end = 25.dp
                             )
-                            .fillMaxHeight()
-                            .fillMaxWidth()
+                            .height(30.dp)
+                            .width(30.dp)
                         ,
                         // alignment = Alignment.Center
                     )
