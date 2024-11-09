@@ -25,6 +25,9 @@ fun SplashPage (navigationController:(screen: Screen)->Unit){
     Theme {
         mainContent()
     }
+    Timer(2000){
+        navigationController.invoke(Screen.OauthScreen())
+    }
 }
 
 @Composable
