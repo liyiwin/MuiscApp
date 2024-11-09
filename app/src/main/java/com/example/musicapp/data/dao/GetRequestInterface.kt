@@ -65,4 +65,33 @@ interface GetRequestInterface {
         @Query("territory")  territory:String,
         @Header("Authorization") token:String
     ): Call<ResponseBody>;
+
+    @GET("/v1.1/search")
+    @Headers("Content-Type: application/json")
+    fun search(
+        @Query("q")  keyword:String,
+        @Query("type") type:String,
+        @Query("territory")  territory:String,
+        @Header("Authorization") token:String,
+        @Query("offset") offset:String,
+        @Query("limit") limit:String,
+    ): Call<ResponseBody>;
+
+    @GET("/v1.1/me/daily-recommended-tracks")
+    @Headers("Content-Type: application/json")
+    fun getDailyRecommendedTracks(
+         @Query("territory")  territory:String,
+         @Query("offset") offset:String,
+         @Query("limit") limit:String,
+         @Header("Authorization") token:String,
+    ): Call<ResponseBody>
+
+    @GET("/v1.1/me/recommendations-from-listened")
+    @Headers("Content-Type: application/json")
+    fun getPersonalRecommendedTracks(
+        @Query("territory")  territory:String,
+        @Query("offset") offset:String,
+        @Query("limit") limit:String,
+        @Header("Authorization") token:String,
+    ): Call<ResponseBody>
 }

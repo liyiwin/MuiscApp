@@ -20,5 +20,10 @@ interface IFetchDataRepository {
 
     suspend fun getTopTracksOfArtist(artistId:String,offset:String, territory:String):RequestResultWithData<List<Track>>
 
+    suspend fun searchTrack(keyword:String, territory:String,offset:String) :RequestResultWithData<List<Track>>
+
+    suspend fun getDailyRecommendedTracks(territory:String,offset:String) :RequestResultWithData<List<Track>>
+
+    suspend fun getPersonalRecommendedTracks(territory:String,offset:String):RequestResultWithData<List<Track>>
 
 }
