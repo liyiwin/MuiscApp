@@ -43,6 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.toColorInt
 import coil.compose.rememberAsyncImagePainter
 import com.example.kkbox_music_app.components.dialog.FailureDialog
 import com.example.kkbox_music_app.components.dialog.LoadingDialog
@@ -84,7 +85,7 @@ fun HomePage(viewModel: HomeViewModel, navigationController:(screen: Screen,page
         }) {
         Column(
             modifier = Modifier
-                .background(Color(0xFFDCFDFF))
+                .background(Color("#eceff1".toColorInt()))
                 .fillMaxHeight()
                 .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top)),
         ){
@@ -274,13 +275,13 @@ fun MainContainer(
             .drawInnerShadow(
                 color = Color.DarkGray,
                 0.9f,
-                left = 15F,
-                top = 20F,
-                right = 0F,
+                left = 10F,
+                top = 10F,
+                right = 10F,
                 bottom = 0F,
                 blur = 1F,
                 topRightBorderRadius = 50.dp,
-                shadowRadius = 10.dp,
+                shadowRadius = 3.dp,
             )
     ){
         Column(
