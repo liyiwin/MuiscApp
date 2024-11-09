@@ -67,7 +67,7 @@ fun AppContent(netWorkViewModel: NetWorkViewModel) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val isNavigationPageHidden = remember { mutableStateOf(false) }
     val screenStack = remember{ArrayList<Screen>()}
-    val screenState = remember { mutableStateOf<Screen>(Screen.Home()) }
+    val screenState = remember { mutableStateOf<Screen>(Screen.SplashScreen()) }
     val bottomBarSelectedIndex = remember { mutableStateOf<Int>(2) }
 
     Scaffold (
