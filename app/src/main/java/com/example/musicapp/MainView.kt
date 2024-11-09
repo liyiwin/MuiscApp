@@ -38,6 +38,7 @@ import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationBar
 import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationItem
 import com.example.musicapp.viewmodel.HomeViewModel
 import com.example.musicapp.viewmodel.TrackListViewModel
+import com.example.musicapp.viewmodel.global.NetWorkViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.CoroutineScope
 
@@ -47,9 +48,9 @@ import kotlinx.coroutines.CoroutineScope
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @RequiresApi(Build.VERSION_CODES.O)
-fun MainView(){
+fun MainView(netWorkViewModel: NetWorkViewModel){
     Theme {
-        AppContent()
+        AppContent(netWorkViewModel)
     }
  }
 @Composable
@@ -58,7 +59,7 @@ fun MainView(){
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @RequiresApi(Build.VERSION_CODES.O)
-fun AppContent() {
+fun AppContent(netWorkViewModel: NetWorkViewModel) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val isNavigationPageHidden = remember { mutableStateOf(false) }
     val screenStack = remember{ArrayList<Screen>()}
@@ -76,7 +77,7 @@ fun AppContent() {
             }
         },
         content = { padding ->
-            MainScreenContainer(screenStack,modifier = Modifier.padding(padding), screenState, isNavigationPageHidden)
+            MainScreenContainer(screenStack,modifier = Modifier.padding(padding), screenState, isNavigationPageHidden,netWorkViewModel)
         }
     )
 
@@ -92,7 +93,8 @@ fun MainScreenContainer(
     screenStack : ArrayList<Screen>,
     modifier: Modifier = Modifier,
     screenState: MutableState<Screen>,
-    isNavigationPageHidden :MutableState<Boolean>
+    isNavigationPageHidden :MutableState<Boolean>,
+    netWorkViewModel: NetWorkViewModel,
     ){
     Surface(
         modifier = modifier,
