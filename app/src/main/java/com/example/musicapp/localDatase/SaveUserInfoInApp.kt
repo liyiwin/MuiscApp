@@ -11,4 +11,8 @@ class SaveUserInfoInApp(private val context: Context):ISaveUserInfoInApp  {
     override fun setToken(token:String) = getSharePreference().edit().putString("token",token).apply();
 
     override fun getToken():String = getSharePreference().getString("token","")!!;
+
+    override fun setRefreshToken(refreshToken: String)  = getSharePreference().edit().putString("refreshToken",refreshToken).apply()
+
+    override fun getRefreshToken(): String = getSharePreference().getString("refreshToken","")!!
 }
