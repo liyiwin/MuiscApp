@@ -11,6 +11,7 @@ import com.example.musicapp.data.requestResult.RequestResultWithData
 import com.example.musicapp.localDatase.ISaveAppSettingInApp
 import com.example.musicapp.localDatase.ISaveUserInfoInApp
 import com.example.musicapp.localDatase.RouterDataStorage
+import com.example.musicapp.tool.extensionfunction.addListAndRemoveDuplicate
 import com.example.musicapp.viewmodel.state.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -119,7 +120,7 @@ class TrackListViewModel@Inject constructor(
                     Log.d("currentPage","currentPage = "+requestResult.data.tracks.get(0).name)
                     currentPage+=1
                     isLastPage = requestResult.message == "已到達最後一頁"
-                    tracks.value = ArrayList(tracks.value!!+requestResult.data.tracks)
+                    tracks.value = tracks.value!!.addListAndRemoveDuplicate(requestResult.data.tracks)
                 }
                 is  RequestResultWithData.Failure->{
                     requestState.postValue(RequestState.Failure(requestResult.message))
@@ -166,7 +167,7 @@ class TrackListViewModel@Inject constructor(
                     Log.d("currentPage","currentPage = "+requestResult.data.tracks.get(0).name)
                     currentPage+=1
                     isLastPage = requestResult.message == "已到達最後一頁"
-                    tracks.value = ArrayList( tracks.value!!+requestResult.data.tracks)
+                    tracks.value = tracks.value!!.addListAndRemoveDuplicate(requestResult.data.tracks)
                 }
                 is  RequestResultWithData.Failure->{
                     requestState.postValue(RequestState.Failure(requestResult.message))
@@ -214,7 +215,7 @@ class TrackListViewModel@Inject constructor(
                     Log.d("currentPage","currentPage = "+requestResult.data.tracks.get(0).name)
                     currentPage+=1
                     isLastPage = requestResult.message == "已到達最後一頁"
-                    tracks.value = ArrayList(tracks.value!!+requestResult.data.tracks)
+                    tracks.value = tracks.value !!.addListAndRemoveDuplicate(requestResult.data.tracks)
                 }
 
                 is  RequestResultWithData.Failure->{
@@ -265,7 +266,7 @@ class TrackListViewModel@Inject constructor(
                     Log.d("currentPage","currentPage = "+requestResult.data.get(0).name)
                     currentPage+=1
                     isLastPage = requestResult.message == "已到達最後一頁"
-                    tracks.value = ArrayList(tracks.value!!+requestResult.data)
+                    tracks.value = tracks.value!!.addListAndRemoveDuplicate(requestResult.data)
                 }
 
                 is  RequestResultWithData.Failure->{
