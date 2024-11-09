@@ -91,7 +91,8 @@ fun TrackListPage(pageTitle:String , viewModel: TrackListViewModel, onBackPress:
         ) {
             TrackListPageTitle(pageTitle,onBackPress = onBackPress)
             TrackListMainContainer(viewModel, OnSelected = {
-
+                RouterDataStorage.putTrack(it)
+                navigationController.invoke(Screen.TrackDetailScreen())
             })
         }
     }
