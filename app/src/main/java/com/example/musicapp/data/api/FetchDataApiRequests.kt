@@ -1,14 +1,15 @@
 package com.example.musicapp.data.api
 
-import android.util.Log
 import com.example.musicapp.bean.remote.PlayList
 import com.example.musicapp.bean.remote.PlayListContent
 import com.example.musicapp.bean.remote.Track
 import com.example.musicapp.data.dao.GetRequestInterface
 import com.example.musicapp.data.dao.RequestResultConverter.ChartsRequestResultConverter
-import com.example.musicapp.data.dao.RequestResultConverter.FeaturedPlayListGetRequestConverter
-import com.example.musicapp.data.dao.RequestResultConverter.FoundationDataGetRequestResultConverter
-import com.example.musicapp.data.dao.RequestResultConverter.NewHitsPlayListGetRequestResultConverter
+import com.example.musicapp.data.dao.RequestResultConverter.FeaturedPlayListRequestConverter
+import com.example.musicapp.data.dao.RequestResultConverter.FoundationDataRequestResultConverter
+import com.example.musicapp.data.dao.RequestResultConverter.NewHitsPlayListRequestResultConverter
+import com.example.musicapp.data.dao.RequestResultConverter.RecommendedTracksRequestConverter
+import com.example.musicapp.data.dao.RequestResultConverter.SearchResultRequestConverter
 import com.example.musicapp.data.requestResult.RequestResultWithData
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -20,9 +21,11 @@ import kotlin.coroutines.suspendCoroutine
 class FetchDataApiRequests(private val requestInterface: GetRequestInterface) {
 
     private val chartsRequestResultConverter = ChartsRequestResultConverter()
-    private val featuredPlayListRequestConverter = FeaturedPlayListGetRequestConverter()
-    private val newHitsPlayListRequestResultConvert = NewHitsPlayListGetRequestResultConverter();
-    private val foundationDataRequestResultConverter = FoundationDataGetRequestResultConverter()
+    private val featuredPlayListRequestConverter = FeaturedPlayListRequestConverter()
+    private val newHitsPlayListRequestResultConvert = NewHitsPlayListRequestResultConverter();
+    private val foundationDataRequestResultConverter = FoundationDataRequestResultConverter()
+    private val searchResultRequestConverter = SearchResultRequestConverter()
+    private val recommendedTracksRequestConverter = RecommendedTracksRequestConverter()
     suspend fun fetchTotalCharts(territory: String,token:String) = suspendCoroutine<RequestResultWithData<List<PlayList>>> {
         continuation ->
         requestInterface.getCharts(territory,"Bearer "+token).enqueue(object: Callback<ResponseBody> {
@@ -92,6 +95,39 @@ class FetchDataApiRequests(private val requestInterface: GetRequestInterface) {
                     = continuation.resume(foundationDataRequestResultConverter.convertGetTopTracksOfArtistOnFailure(call,t))
 
         });
+    }
+
+    suspend fun searchTrack(keyword:String, territory:String, token:String,offset:String,limit:String) = suspendCoroutine<RequestResultWithData<List<Track>>>{
+            continuation ->
+        requestInterface.search(keyword,"track", territory, "Bearer "+token,offset,limit).enqueue(object:Callback<ResponseBody>{
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>)
+                    = continuation.resume(searchResultRequestConverter.convertSearchTrackOnResponse(response))
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable)
+                    = continuation.resume(searchResultRequestConverter.convertSearchTrackOnFailure(call, t))
+
+        });
+    }
+
+    suspend fun getDailyRecommendedTracks(territory:String,offset:String,limit:String,token:String) = suspendCoroutine<RequestResultWithData<List<Track>>> {
+            continuation ->
+            requestInterface.getDailyRecommendedTracks(territory, offset, limit, "Bearer "+token).enqueue(object:Callback<ResponseBody>{
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody> )
+                = continuation.resume(recommendedTracksRequestConverter.convertDailyRecommendedTrackOnResponses(response))
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable)
+                = continuation.resume(recommendedTracksRequestConverter.convertDailyRecommendedTrackOnFailure(call, t))
+
+            })
+    }
+
+    suspend fun getPersonalRecommendedTracks(territory:String,offset:String,limit:String,token:String) = suspendCoroutine<RequestResultWithData<List<Track>>> {
+            continuation ->
+            requestInterface.getPersonalRecommendedTracks(territory, offset, limit,"Bearer "+ token).enqueue(object:Callback<ResponseBody>{
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody> )
+                = continuation.resume(recommendedTracksRequestConverter.convertPersonalRecommendedTracksOnResponse(response))
+               override fun onFailure(call: Call<ResponseBody>, t: Throwable)
+                = continuation.resume(recommendedTracksRequestConverter.convertPersonalRecommendedTracksOnFailure(call, t))
+            })
     }
 
 }
