@@ -65,7 +65,7 @@ fun MainView(netWorkViewModel: NetWorkViewModel){
 @RequiresApi(Build.VERSION_CODES.O)
 fun AppContent(netWorkViewModel: NetWorkViewModel) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
-    val isNavigationPageHidden = remember { mutableStateOf(false) }
+    val isNavigationPageHidden = remember { mutableStateOf(true) }
     val screenStack = remember{ArrayList<Screen>()}
     val screenState = remember { mutableStateOf<Screen>(Screen.SplashScreen()) }
     val bottomBarSelectedIndex = remember { mutableStateOf<Int>(2) }
@@ -109,6 +109,7 @@ fun MainScreenContainer(
                 isNavigationPageHidden.value = false
                 val viewModel = viewModel<HomeViewModel>()
                 HomePage(viewModel) { screen,pageTitle ->
+                    isNavigationPageHidden.value = false
                     RouterDataStorage.putTrackListTitle(pageTitle);
                     Navigate(
                     screenStack = screenStack,
