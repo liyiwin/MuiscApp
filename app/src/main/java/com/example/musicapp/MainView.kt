@@ -81,7 +81,7 @@ fun AppContent(netWorkViewModel: NetWorkViewModel) {
             }
         },
         content = { padding ->
-            MainScreenContainer(screenStack,modifier = Modifier.padding(padding), screenState, isNavigationPageHidden,netWorkViewModel)
+            MainScreenContainer(screenStack,Modifier, screenState, isNavigationPageHidden,netWorkViewModel)
         }
     )
 
