@@ -17,4 +17,5 @@ sealed class  Screen(val titleResId:Int){
     class TrackListScreen:Screen(R.string.trackListPage)
 
 
+    class SplashScreen:Screen(R.string.splashPage)
 }

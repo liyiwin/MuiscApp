@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MusicApp</string>
+    <string name="splashPage">啟動頁面</string>
     <string name="home">主頁面</string>
     <string name="searchPage">搜尋頁面</string>
     <string name="trackListPage">所有歌曲</string>

@@ -31,6 +31,7 @@ import com.example.musicapp.page.MusicPlayerPage
 import com.example.musicapp.page.RecommendPage
 import com.example.musicapp.page.SearchPage
 import com.example.musicapp.page.SettingPage
+import com.example.musicapp.page.SplashPage
 import com.example.musicapp.page.TrackListPage
 import com.example.musicapp.routing.Screen
 import com.example.musicapp.theme.Theme
@@ -163,6 +164,14 @@ fun MainScreenContainer(
                         page = screen)
                     }
                 )
+            }
+            is  Screen.SplashScreen ->{
+                isNavigationPageHidden.value = true
+                SplashPage (navigationController = { screen -> Navigate(
+                    screenStack = screenStack,
+                    screenState = screenState,
+                    page = screen)
+                })
             }
 
         }
