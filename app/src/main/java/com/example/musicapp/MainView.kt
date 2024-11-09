@@ -1,6 +1,7 @@
 package com.example.musicapp
 
 import android.app.Activity
+import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -52,9 +53,9 @@ import kotlinx.coroutines.CoroutineScope
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @RequiresApi(Build.VERSION_CODES.O)
-fun MainView(netWorkViewModel: NetWorkViewModel){
+fun MainView(netWorkViewModel: NetWorkViewModel,externalPageNavigationController:(uri: Uri)->Unit){
     Theme {
-        AppContent(netWorkViewModel)
+        AppContent(netWorkViewModel,externalPageNavigationController)
     }
  }
 @Composable
@@ -63,7 +64,7 @@ fun MainView(netWorkViewModel: NetWorkViewModel){
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @RequiresApi(Build.VERSION_CODES.O)
-fun AppContent(netWorkViewModel: NetWorkViewModel) {
+fun AppContent(netWorkViewModel: NetWorkViewModel,externalPageNavigationController:(uri: Uri)->Unit) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val isNavigationPageHidden = remember { mutableStateOf(true) }
     val screenStack = remember{ArrayList<Screen>()}
@@ -81,7 +82,7 @@ fun AppContent(netWorkViewModel: NetWorkViewModel) {
             }
         },
         content = { padding ->
-            MainScreenContainer(screenStack,Modifier, screenState, isNavigationPageHidden,netWorkViewModel)
+            MainScreenContainer(screenStack,Modifier, screenState, isNavigationPageHidden,netWorkViewModel,externalPageNavigationController)
         }
     )
 
@@ -99,6 +100,7 @@ fun MainScreenContainer(
     screenState: MutableState<Screen>,
     isNavigationPageHidden :MutableState<Boolean>,
     netWorkViewModel: NetWorkViewModel,
+    externalPageNavigationController:(uri: Uri)->Unit
     ){
     Surface(
         modifier = modifier,

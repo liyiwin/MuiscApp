@@ -1,5 +1,7 @@
 package com.example.musicapp
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -21,6 +23,9 @@ class MainActivity : AppCompatActivity() {
     private var netWorkConnectionObserver: Observer<Boolean>? = null
     private var netWorkSubject: NetWorkSubject? = null
     private val netWorkViewModel: NetWorkViewModel by viewModels()
+    private val externalPageNavigationController: (uri: Uri)->Unit  = {   uri ->
+       this@MainActivity.startActivity(Intent(Intent.ACTION_VIEW, uri))
+    }
 
     @ExperimentalComposeUiApi
     @ExperimentalMaterialApi
@@ -31,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent{
-            MainView(netWorkViewModel)
+            MainView(netWorkViewModel,externalPageNavigationController)
        }
         setNetWorkSubject()
         registerNetWorkConnectionStatus()
