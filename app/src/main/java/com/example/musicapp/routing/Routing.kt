@@ -18,4 +18,8 @@ sealed class  Screen(val titleResId:Int){
 
 
     class SplashScreen:Screen(R.string.splashPage)
+
+    class OauthScreen:Screen(R.string.oauthPage)
+
+    class LoginScreen:Screen(R.string.oauthPage)
 }
