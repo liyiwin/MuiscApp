@@ -35,6 +35,7 @@ import com.example.musicapp.page.RecommendPage
 import com.example.musicapp.page.SearchPage
 import com.example.musicapp.page.SettingPage
 import com.example.musicapp.page.SplashPage
+import com.example.musicapp.page.TrackDetailPage
 import com.example.musicapp.page.TrackListPage
 import com.example.musicapp.routing.Screen
 import com.example.musicapp.theme.Theme
@@ -42,6 +43,7 @@ import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationBar
 import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationItem
 import com.example.musicapp.viewmodel.HomeViewModel
 import com.example.musicapp.viewmodel.LoginViewModel
+import com.example.musicapp.viewmodel.TrackDetailViewModel
 import com.example.musicapp.viewmodel.TrackListViewModel
 import com.example.musicapp.viewmodel.global.NetWorkViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -169,6 +171,22 @@ fun MainScreenContainer(
                         screenState = screenState,
                         page = screen)
                     }
+                )
+            }
+            is   Screen.TrackDetailScreen -> {
+                isNavigationPageHidden.value = true
+                val viewModel = viewModel<TrackDetailViewModel>()
+                TrackDetailPage(viewModel,
+                    onBackPress = {
+                        RouterDataStorage.popTrack()
+                        Back( screenStack = screenStack, screenState = screenState)
+                    },
+                    navigationController = { screen -> Navigate(
+                        screenStack = screenStack,
+                        screenState = screenState,
+                        page = screen)
+                    },
+                    externalPageNavigationController = externalPageNavigationController
                 )
             }
             is  Screen.SplashScreen ->{
