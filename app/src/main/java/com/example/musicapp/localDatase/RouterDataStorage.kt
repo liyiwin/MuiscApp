@@ -8,6 +8,7 @@ object RouterDataStorage {
     val  trackListTransferDataStack = ArrayList<TrackListTransferData>()
     val trackStack = ArrayList<Track>()
     val tracklistTitle = ArrayList<String>()
+    private var authCode = ""
     fun putTrackListTransferData(data:TrackListTransferData){
         trackListTransferDataStack.add(data)
     }
@@ -45,5 +46,13 @@ object RouterDataStorage {
 
     fun getTrack():Track? {
         return if(trackStack.isEmpty()) null else trackStack.last()
+    }
+
+    fun putAuthCode(authCode:String){
+        this.authCode = authCode;
+    }
+
+    fun getAuthCode():String{
+        return this.authCode
     }
 }
