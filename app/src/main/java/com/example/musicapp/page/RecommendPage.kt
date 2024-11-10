@@ -45,6 +45,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.toColorInt
 import coil.compose.rememberAsyncImagePainter
 import com.example.kkbox_music_app.components.dialog.FailureDialog
 import com.example.kkbox_music_app.components.dialog.LoadingDialog
@@ -74,7 +75,7 @@ fun  RecommendPage(viewModel: RecommendViewModel, navigationController:(screen: 
 
     Column(
         modifier = Modifier
-            .background(Color(0xFFFAF6F1))
+            .background(Color("#FFF9F9".toColorInt()))
             .fillMaxHeight()
             .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top)),
 
