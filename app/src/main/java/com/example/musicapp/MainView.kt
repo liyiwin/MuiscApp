@@ -1,5 +1,6 @@
 package com.example.musicapp
 
+import androidx.compose.ui.graphics.Color
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -21,6 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.musicapp.localDatase.RouterDataStorage
 import com.example.musicapp.page.HomePage
@@ -226,29 +228,36 @@ fun BottomNavigationComponent(
     screenState: MutableState<Screen>,
     selectedIndex : MutableState<Int>
 ) {
+    val context = LocalContext.current
+
     val items = listOf(
         BottomNavigationItem(0,
             R.drawable.ic_search_selected,
             R.drawable.ic_search_grey,
+            Color(context.getResources().getColor(R.color.searchBottomBarColor,null)),
             R.string.search_icon, Screen.SearchScreen()),
         BottomNavigationItem(1,
             R.drawable.ic_recommend_selected,
             R.drawable.ic_recommend,
+            Color(context.getResources().getColor(R.color.recommendBottomBarColor,null)),
             R.string.recommend_icon, Screen.RecommendScreen()),
         BottomNavigationItem(2,
             R.drawable.ic_home_selected,
             R.drawable.ic_home,
+            Color(context.getResources().getColor(R.color.homeBottomBarColor,null)),
             R.string.home_icon, Screen.Home()),
         BottomNavigationItem(3,
             R.drawable.ic_music_player_selected,
             R.drawable.ic_music_player,
+            Color(context.getResources().getColor(R.color.playerBottomBarColor,null)),
             R.string.music_player_icon, Screen.MusicPlayerScreen()),
         BottomNavigationItem(4,
             R.drawable.ic_personal_selected,
             R.drawable.ic_personal_grey,
+            Color(context.getResources().getColor(R.color.settingBottomBarColor,null)),
             R.string.personal_icon, Screen.SettingScreen()),
     )
-    BottomNavigationBar(selectedIndex.value,modifier,items){
+    BottomNavigationBar(items[selectedIndex.value].background,selectedIndex.value,modifier,items){
         selectedIndex.value = items.indexOf(it)
         Navigate(
             screenStack = screenStack,
