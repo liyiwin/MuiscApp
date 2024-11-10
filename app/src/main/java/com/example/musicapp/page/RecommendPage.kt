@@ -61,6 +61,8 @@ import com.example.musicapp.routing.Screen
 import com.example.musicapp.viewmodel.HomeViewModel
 import com.example.musicapp.viewmodel.RecommendViewModel
 import com.example.musicapp.viewmodel.state.RequestState
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @ExperimentalComposeUiApi
 @ExperimentalMaterialApi
@@ -73,19 +75,29 @@ fun  RecommendPage(viewModel: RecommendViewModel, navigationController:(screen: 
 
     RequestStateDialog(viewModel)
 
-    Column(
-        modifier = Modifier
-            .background(Color("#FFF9F9".toColorInt()))
-            .fillMaxHeight()
-            .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top)),
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
 
-    ){
-        RecommendedPageTitle()
-        RecommendedPageContainer(viewModel, OnSelected = {
-            RouterDataStorage.putTrack(it)
-            navigationController.invoke(Screen.TrackDetailScreen())
-        })
+    SwipeRefresh(
+        state = swipeRefreshState ,
+        onRefresh = {
+            viewModel.fetchDailyRecommendedTracks()
+            viewModel.fetchPersonalRecommendedTracks()
+        }){
+        Column(
+            modifier = Modifier
+                .background(Color("#FFF9F9".toColorInt()))
+                .fillMaxHeight()
+                .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top)),
+
+            ){
+            RecommendedPageTitle()
+            RecommendedPageContainer(viewModel, OnSelected = {
+                RouterDataStorage.putTrack(it)
+                navigationController.invoke(Screen.TrackDetailScreen())
+            })
+        }
     }
+
 }
 
 @ExperimentalComposeUiApi
