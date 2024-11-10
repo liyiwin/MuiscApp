@@ -1,6 +1,5 @@
 package com.example.musicapp
 
-import android.app.Activity
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -8,7 +7,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.only
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.ExperimentalMaterialApi
@@ -21,10 +19,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.key.Key.Companion.Back
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.musicapp.localDatase.RouterDataStorage
 import com.example.musicapp.page.HomePage
@@ -43,11 +39,11 @@ import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationBar
 import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationItem
 import com.example.musicapp.viewmodel.HomeViewModel
 import com.example.musicapp.viewmodel.LoginViewModel
+import com.example.musicapp.viewmodel.RecommendViewModel
 import com.example.musicapp.viewmodel.TrackDetailViewModel
 import com.example.musicapp.viewmodel.TrackListViewModel
 import com.example.musicapp.viewmodel.global.NetWorkViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
-import kotlinx.coroutines.CoroutineScope
 
 @Composable
 @ExperimentalComposeUiApi
@@ -72,7 +68,6 @@ fun AppContent(netWorkViewModel: NetWorkViewModel,externalPageNavigationControll
     val screenStack = remember{ArrayList<Screen>()}
     val screenState = remember { mutableStateOf<Screen>(Screen.SplashScreen()) }
     val bottomBarSelectedIndex = remember { mutableStateOf<Int>(2) }
-
     Scaffold (
         scaffoldState = scaffoldState,
         modifier = Modifier.windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Bottom)),
@@ -141,7 +136,8 @@ fun MainScreenContainer(
 
             is   Screen.RecommendScreen -> {
                 isNavigationPageHidden.value = false
-                RecommendPage{ screen -> Navigate(
+                val viewModel = viewModel<RecommendViewModel>()
+                RecommendPage(viewModel){ screen -> Navigate(
                     screenStack = screenStack,
                     screenState = screenState,
                     page = screen)
