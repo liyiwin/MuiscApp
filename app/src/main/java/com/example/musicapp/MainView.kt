@@ -42,6 +42,7 @@ import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationItem
 import com.example.musicapp.viewmodel.HomeViewModel
 import com.example.musicapp.viewmodel.LoginViewModel
 import com.example.musicapp.viewmodel.RecommendViewModel
+import com.example.musicapp.viewmodel.SearchViewModel
 import com.example.musicapp.viewmodel.TrackDetailViewModel
 import com.example.musicapp.viewmodel.TrackListViewModel
 import com.example.musicapp.viewmodel.global.NetWorkViewModel
@@ -120,7 +121,8 @@ fun MainScreenContainer(
             }
             is  Screen.SearchScreen -> {
                 isNavigationPageHidden.value = false
-                SearchPage{ screen -> Navigate(
+                val viewModel = viewModel<SearchViewModel>()
+                SearchPage(viewModel){ screen -> Navigate(
                     screenStack = screenStack,
                     screenState = screenState,
                     page = screen)
