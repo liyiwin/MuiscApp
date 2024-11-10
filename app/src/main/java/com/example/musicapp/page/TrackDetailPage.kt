@@ -223,7 +223,7 @@ fun TrackInformationContainer(viewModel: TrackDetailViewModel,externalPageNaviga
                     color = Color.Black,
                     modifier = Modifier
                         .padding(start = 15.dp)
-                        .weight(1f, fill = true)
+                        .weight(3f, fill = true)
                 )
 
                 Row(
