@@ -140,9 +140,9 @@ fun buildShadowPaint(drawScope: DrawScope):Paint{
     val paint = Paint()
     drawScope.apply {
         val alpha = 0.7f
-        val shadowRadius =1.dp
+        val shadowRadius =2.dp
         val offsetX = 2.dp
-        val offsetY = -2.dp
+        val offsetY = -3.dp
         val color = Color.DarkGray
         val transparentColor = android.graphics.Color.toArgb(color.copy(alpha = .0f).value.toLong())
         val shadowColor = android.graphics.Color.toArgb(color.copy(alpha =  alpha).value.toLong())

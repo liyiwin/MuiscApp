@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -49,6 +50,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.toColorInt
 import coil.compose.rememberAsyncImagePainter
 import com.example.kkbox_music_app.components.dialog.FailureDialog
 import com.example.kkbox_music_app.components.dialog.LoadingDialog
@@ -84,7 +86,7 @@ fun TrackListPage(pageTitle:String , viewModel: TrackListViewModel, onBackPress:
     ) {
         Column(
             modifier = Modifier
-                .background(Color(0xFFF3F3F3))
+                .background(Color("#E4FFFF".toColorInt()))
                 .fillMaxWidth()
                 .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top)),
 
@@ -141,20 +143,18 @@ fun TrackListPageTitle(pageTitle:String,onBackPress:()->Unit){
             .fillMaxWidth()
             .padding(top = 10.dp)
     ){
-        Surface(
-            color = Color(0xFFF3F3F3),
-            onClick = { onBackPress.invoke() }) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_back_black),
-                contentDescription = "",
-                modifier = Modifier
-                    .height(40.dp)
-                    .width(40.dp)
-                    .padding(top = 10.dp)
-                    .weight(1f)
-            )
-        }
-
+        Image(
+            painter = painterResource(id = R.drawable.ic_back_black),
+            contentDescription = "",
+            modifier = Modifier
+                .height(40.dp)
+                .width(40.dp)
+                .padding(top = 10.dp)
+                .weight(1f)
+                .clickable {
+                    onBackPress.invoke()
+                }
+        )
         Image(
             painter = painterResource(id = R.drawable.ic_hit_tracks),
             contentDescription = "",
@@ -187,26 +187,17 @@ fun TrackListMainContainer(viewModel: TrackListViewModel,OnSelected:(Track)->Uni
     val listState = rememberLazyListState()
     Surface(
         shape  = RoundedCornerShape(topEnd = 25.dp, topStart = 25.dp),
-        color = Color(0xFFE1F3EE),
+        color = Color("#FFFFFF".toColorInt()),
         modifier = Modifier
-            .padding(top = 30.dp)
+            .padding(top = 30.dp, start = 10.dp,end =10.dp)
             .fillMaxWidth()
             .fillMaxHeight()
-            .drawInnerShadow(
-                color = Color.Gray,
-                0.9f,
-                left = 0F,
-                top = 20F,
-                right = 0F,
-                bottom = 0F,
-                topRightBorderRadius = 25.dp,
-                topLeftBorderRadius = 25.dp,
-                shadowRadius = 20.dp,
-            )
-    ){
+            .border(0.1.dp,Color.Black,RoundedCornerShape(topEnd = 25.dp, topStart = 25.dp))
+   ){
 
         LazyColumn(
             state = listState,
+            contentPadding = PaddingValues(top = 50.dp,bottom = 100.dp),
         ) {
             for(i in tracks.value!!.indices)
                 item{
@@ -226,6 +217,7 @@ fun TrackListMainContainer(viewModel: TrackListViewModel,OnSelected:(Track)->Uni
 @Composable
 fun TrackItem(track: Track, OnSelected:(Track)->Unit){
     Column(
+
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 15.dp, bottom = 5.dp)
@@ -239,7 +231,7 @@ fun TrackItem(track: Track, OnSelected:(Track)->Unit){
         ,
         verticalArrangement = Arrangement.Center
     ) {
-        Box(Modifier.padding(15.dp)) {
+        Box(Modifier.padding(15.dp).background(Color("#F6FFF6".toColorInt()))) {
             val padding = 20.dp
             val itemHeight = 120.dp
 
@@ -249,20 +241,20 @@ fun TrackItem(track: Track, OnSelected:(Track)->Unit){
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(
-                        width = 2.dp,
+                        width = 1.dp,
                         color = Color.Black,
                         shape = RoundedCornerShape(20.dp)
                     )
                     .drawDropShadow(
                         Color.LightGray,
                         0.9f,
-                        topLeftBorderRadius = 10.dp,
-                        topRightBorderRadius = 10.dp,
-                        bottomLeftBorderRadius = 10.dp,
-                        bottomRightBorderRadius = 10.dp,
-                        shadowRadius = 1.dp,
-                        offsetX = 10.dp,
-                        offsetY = 10.dp,
+                        topLeftBorderRadius = 20.dp,
+                        topRightBorderRadius = 20.dp,
+                        bottomLeftBorderRadius = 20.dp,
+                        bottomRightBorderRadius = 20.dp,
+                        shadowRadius = 0.5.dp,
+                        offsetX = 5.dp,
+                        offsetY = 5.dp,
                     )
                     .height(IntrinsicSize.Min)
                 ,
@@ -317,7 +309,9 @@ fun TrackItem(track: Track, OnSelected:(Track)->Unit){
                 Image(
                     modifier = Modifier
                         .size(itemHeight)
-                        .clip(RoundedCornerShape(100.dp)),
+                        .clip(RoundedCornerShape(100.dp))
+
+                    ,
                     painter = rememberAsyncImagePainter(track.album.images[1].url),
                     contentDescription = "",
                     contentScale = ContentScale.Crop

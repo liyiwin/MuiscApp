@@ -85,7 +85,7 @@ fun HomePage(viewModel: HomeViewModel, navigationController:(screen: Screen,page
         }) {
         Column(
             modifier = Modifier
-                .background(Color("#eceff1".toColorInt()))
+                .background(Color.White)
                 .fillMaxHeight()
                 .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top)),
         ){
@@ -266,10 +266,9 @@ fun MainContainer(
     onHitPlayListSelected:(PlayList) -> Unit,
 ){
     Surface(
-        shape  = RoundedCornerShape(topEnd = 50.dp),
-        color = Color.White,
+        color = Color("#FDFDFD".toColorInt()),
         modifier = Modifier
-            .padding(start = 25.dp, end = 25.dp, top = 25.dp)
+            .padding( top = 25.dp)
             .fillMaxWidth()
             .fillMaxHeight()
             .drawInnerShadow(
@@ -279,8 +278,7 @@ fun MainContainer(
                 top = 10F,
                 right = 10F,
                 bottom = 0F,
-                blur = 1F,
-                topRightBorderRadius = 50.dp,
+                blur = 30F,
                 shadowRadius = 3.dp,
             )
     ){
@@ -288,7 +286,7 @@ fun MainContainer(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .padding(5.dp)
+                .padding(top =5.dp, bottom = 5.dp, start = 30.dp,end = 30.dp)
                 .verticalScroll(rememberScrollState())
         ){
 

@@ -283,17 +283,17 @@ fun personalRecommendTracksContainer(viewModel: RecommendViewModel,OnSelected:(T
 fun RecommendTracksItem(item:Track,OnSelected:(Track)->Unit){
     Surface(
         // backgroundColor = Color.LightGray,
-        shape  = RoundedCornerShape(bottomEnd = 25.dp , topStart = 25.dp),
+        shape  = RoundedCornerShape(10.dp),
         color = Color.White,
         modifier = Modifier
             .padding(10.dp)
             .drawDropShadow(
                 Color.DarkGray,
                 0.9f,
-                topLeftBorderRadius = 25.dp,
-                topRightBorderRadius = 25.dp,
-                bottomLeftBorderRadius = 25.dp,
-                bottomRightBorderRadius = 25.dp,
+                topLeftBorderRadius = 10.dp,
+                topRightBorderRadius = 10.dp,
+                bottomLeftBorderRadius = 10.dp,
+                bottomRightBorderRadius = 10.dp,
                 shadowRadius = 6.dp,
                 offsetX = 5.dp,
                 offsetY = 5.dp,
@@ -305,7 +305,7 @@ fun RecommendTracksItem(item:Track,OnSelected:(Track)->Unit){
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(150.dp)
-                .clip(RoundedCornerShape(bottomEnd = 25.dp, topStart = 25.dp))
+                .clip(RoundedCornerShape(10.dp))
                 .clickable(
                     interactionSource = MutableInteractionSource(),
                     indication = null,
