@@ -195,6 +195,7 @@ fun TrackInformationContainer(viewModel: TrackDetailViewModel,externalPageNaviga
     val artistName = viewModel.getArtistNameOfTrack().observeAsState()
     val trackName = viewModel.getName().observeAsState()
     val url = viewModel.getUrl().observeAsState()
+    val isAddedIntoFavorite = viewModel.getIsAddedIntoFavorite().observeAsState()
     Box(
         modifier = Modifier
             .padding(top =50.dp)
@@ -235,9 +236,16 @@ fun TrackInformationContainer(viewModel: TrackDetailViewModel,externalPageNaviga
                         modifier = Modifier
                             .align(Alignment.CenterVertically)
                             .size(30.dp),
-                        imageVector = ImageVector
-                            .vectorResource(id = R.drawable.ic_collect),
-                        contentDescription = ""
+                            .clickable(
+                                interactionSource = MutableInteractionSource(),
+                                indication = null,
+                                onClick = {
+                                    if(isAddedIntoFavorite.value!!) viewModel.removeFavoriteTrack() else viewModel.addFavoriteTrack()
+                                }
+                            ),
+                        painter = painterResource(id = if(isAddedIntoFavorite.value!!) R.drawable.saved else R.drawable.not_saved),
+                        contentDescription = "",
+
                     )
                     Text(
                         fontSize = 15.sp,

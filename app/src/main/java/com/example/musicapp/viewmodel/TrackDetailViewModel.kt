@@ -10,6 +10,7 @@ import com.example.musicapp.data.requestResult.RequestResultWithData
 import com.example.musicapp.localDatase.ISaveAppSettingInApp
 import com.example.musicapp.localDatase.ISaveUserInfoInApp
 import com.example.musicapp.localDatase.RouterDataStorage
+import com.example.musicapp.localDatase.sqLite.FavoriteTracksStorage
 import com.example.musicapp.viewmodel.state.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -20,6 +21,7 @@ class TrackDetailViewModel@Inject constructor(
     private val repo: IFetchDataRepository,
     private val saveUserInfoInApp: ISaveUserInfoInApp,
     private val saveAppSettingInApp: ISaveAppSettingInApp,
+    private val favoriteTracksStorage: FavoriteTracksStorage
 ): ViewModel()  {
 
     private val trackName : MutableLiveData<String> by lazy { MutableLiveData<String>("") }
@@ -30,6 +32,7 @@ class TrackDetailViewModel@Inject constructor(
     private val artistId: MutableLiveData<String> by lazy { MutableLiveData<String>("") }
     private val imageUrl : MutableLiveData<String> by lazy { MutableLiveData<String>("") }
     private val otherTracks: MutableLiveData<List<Track>> by lazy { MutableLiveData<List<Track>>(listOf()) }
+    private val isAddedIntoFavorite  : MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>(false) }
     private val title = MediatorLiveData<String>().apply {
         val update = {
             value =  "歌名:" +trackName.value + "\n"  + "專輯:" + albumName.value
@@ -55,6 +58,8 @@ class TrackDetailViewModel@Inject constructor(
 
     fun getTrackImageUrl() = imageUrl;
 
+    fun getIsAddedIntoFavorite()  = isAddedIntoFavorite
+
     fun getTracks() = otherTracks
 
     fun getRequestDisplayState() = requestState
@@ -74,6 +79,7 @@ class TrackDetailViewModel@Inject constructor(
         artistId.postValue(track?.album?.artist?.id?:"")
         imageUrl.postValue(track?.album?.images?.get(1)?.url?:"")
         trackUrl.postValue(track?.url?:"")
+        isAddedIntoFavorite.postValue(favoriteTracksStorage.checkTrackIsAdded(track?.id?:""))
         otherTracks.postValue(listOf())
     }
 
@@ -96,5 +102,14 @@ class TrackDetailViewModel@Inject constructor(
         }
     }
 
+    fun addFavoriteTrack(){
+        favoriteTracksStorage.addFavoriteTrack(RouterDataStorage.getTrack()!!)
+        isAddedIntoFavorite.postValue(favoriteTracksStorage.checkTrackIsAdded(RouterDataStorage.getTrack()!!.id))
+    }
+
+    fun removeFavoriteTrack(){
+        favoriteTracksStorage.removeFavoriteTrack(RouterDataStorage.getTrack()!!.id)
+        isAddedIntoFavorite.postValue(favoriteTracksStorage.checkTrackIsAdded(RouterDataStorage.getTrack()!!.id))
+    }
 
 }
