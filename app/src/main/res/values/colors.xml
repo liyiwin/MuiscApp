@@ -8,7 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="homeBottomBarColor">#eceff1</color>
-    <color name="searchBottomBarColor">#FFFAED</color>
+    <color name="searchBottomBarColor">#FFFFFF</color>
     <color name="recommendBottomBarColor">#FFF9F9</color>
     <color name="playerBottomBarColor">#F6F6F6</color>
     <color name="settingBottomBarColor">#F6F6F6</color>
