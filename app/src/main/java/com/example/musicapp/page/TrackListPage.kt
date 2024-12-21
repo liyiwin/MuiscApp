@@ -58,7 +58,6 @@ import com.example.kkbox_music_app.components.dialog.SuccessDialog
 import com.example.musicapp.R
 import com.example.musicapp.bean.remote.Track
 import com.example.musicapp.components.drawDropShadow
-import com.example.musicapp.components.drawInnerShadow
 import com.example.musicapp.components.isScrolledToEnd
 import com.example.musicapp.localDatase.RouterDataStorage
 import com.example.musicapp.routing.Screen
