@@ -24,6 +24,8 @@ sealed class  Screen(val titleResId:Int){
 
     class LoginScreen:Screen(R.string.oauthPage)
 
+    class FavoriteTracksScreen:Screen(R.string.favoriteTracksPage)
+
     class PersonalInformationScreen:Screen(R.string.personalInformationPage)
 
 }
