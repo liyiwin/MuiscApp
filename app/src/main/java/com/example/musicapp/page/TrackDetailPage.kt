@@ -199,72 +199,70 @@ fun TrackInformationContainer(viewModel: TrackDetailViewModel,externalPageNaviga
     Box(
         modifier = Modifier
             .padding(top =50.dp)
+
 //              .background(Color(0xFFE7E3E3))
     ) {
-        Column{
+        Column(
+            verticalArrangement = Arrangement.spacedBy(15.dp),
+            modifier = Modifier .padding(start = 15.dp,end =15.dp)
+        ){
             Text(
                 fontSize = 20.sp,
                 text = title.value?:"",
                 textAlign = TextAlign.Start,
                 color = Color.Black,
                 modifier = Modifier
-                    .padding(start = 15.dp)
                     .fillMaxWidth()
                     .fillMaxHeight()
 
             )
-            Row(
+            Text(
+                fontSize = 15.sp,
+                text = "歌手："+artistName.value?:"",
+                textAlign = TextAlign.Left,
+                color = Color.Black,
                 modifier = Modifier
-                    .padding(top =15.dp)
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+            )
+
+            Row(
+                horizontalArrangement = Arrangement.Start,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
             ){
+                Image(
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .size(50.dp)
+                        .clickable(
+                            interactionSource = MutableInteractionSource(),
+                            indication = null,
+                            onClick = {
+                                if(isAddedIntoFavorite.value!!) viewModel.removeFavoriteTrack() else viewModel.addFavoriteTrack()
+                            }
+                        ),
+                    painter = painterResource(id = if(isAddedIntoFavorite.value!!) R.drawable.saved else R.drawable.not_saved),
+                    contentDescription = "",
+
+                    )
                 Text(
                     fontSize = 15.sp,
-                    text = "歌手："+artistName.value?:"",
-                    textAlign = TextAlign.Left,
+                    text = "收藏",
+                    textAlign = TextAlign.Start,
                     color = Color.Black,
                     modifier = Modifier
-                        .padding(start = 15.dp)
-                        .weight(3f, fill = true)
+                        .align(Alignment.CenterVertically)
+                        .fillMaxWidth()
+                        .fillMaxHeight()
                 )
-
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .weight(1f, fill = true)
-                ){
-                    Icon(
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
-                            .size(30.dp),
-                            .clickable(
-                                interactionSource = MutableInteractionSource(),
-                                indication = null,
-                                onClick = {
-                                    if(isAddedIntoFavorite.value!!) viewModel.removeFavoriteTrack() else viewModel.addFavoriteTrack()
-                                }
-                            ),
-                        painter = painterResource(id = if(isAddedIntoFavorite.value!!) R.drawable.saved else R.drawable.not_saved),
-                        contentDescription = "",
-
-                    )
-                    Text(
-                        fontSize = 15.sp,
-                        text = "收藏",
-                        textAlign = TextAlign.Center,
-                        color = Color.Black,
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
-                            .fillMaxHeight(),
-                    )
-                }
-
             }
 
             Row(
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
                     .padding(top = 15.dp)
-                    .fillMaxWidth()
 
             ){
                 Card(
