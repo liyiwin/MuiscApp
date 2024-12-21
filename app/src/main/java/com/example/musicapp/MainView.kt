@@ -28,6 +28,7 @@ import com.example.musicapp.localDatase.RouterDataStorage
 import com.example.musicapp.page.FavoriteTracksPage
 import com.example.musicapp.page.HomePage
 import com.example.musicapp.page.LoginPage
+import com.example.musicapp.page.localTrackFolders.LocalTrackFoldersPage
 import com.example.musicapp.page.MusicPlayerPage
 import com.example.musicapp.page.OathPage
 import com.example.musicapp.page.PersonalInformationPage
@@ -44,6 +45,7 @@ import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationItem
 import com.example.musicapp.viewmodel.FavoriteTracksViewModel
 import com.example.musicapp.viewmodel.HomeViewModel
 import com.example.musicapp.viewmodel.LoginViewModel
+import com.example.musicapp.viewmodel.LocalTrackFoldersVIewModel
 import com.example.musicapp.viewmodel.PersonalInformationViewModel
 import com.example.musicapp.viewmodel.RecommendViewModel
 import com.example.musicapp.viewmodel.SearchViewModel
@@ -152,9 +154,10 @@ fun MainScreenContainer(
                     page = screen)
                 }
             }
-            is  Screen.MusicPlayerScreen -> {
+            is  Screen.LocalTrackFoldersScreen -> {
                 isNavigationPageHidden.value = false
-                MusicPlayerPage{ screen -> Navigate(
+                val viewModel = viewModel<LocalTrackFoldersVIewModel>()
+                LocalTrackFoldersPage( viewModel){ screen -> Navigate(
                     screenStack = screenStack,
                     screenState = screenState,
                     page = screen)
@@ -285,7 +288,7 @@ fun BottomNavigationComponent(
             R.drawable.ic_music_player_selected,
             R.drawable.ic_music_player,
             Color(context.getResources().getColor(R.color.playerBottomBarColor,null)),
-            R.string.music_player_icon, Screen.MusicPlayerScreen()),
+            R.string.music_player_icon, Screen.LocalTrackFoldersScreen()),
         BottomNavigationItem(4,
             R.drawable.ic_personal_selected,
             R.drawable.ic_personal_grey,
