@@ -1,5 +1,6 @@
 package com.example.musicapp.data.repository
 
+import com.example.musicapp.bean.remote.PersonalInformation
 import com.example.musicapp.bean.remote.PlayList
 import com.example.musicapp.bean.remote.PlayListContent
 import com.example.musicapp.bean.remote.Track
@@ -25,5 +26,7 @@ interface IFetchDataRepository {
     suspend fun getDailyRecommendedTracks(territory:String,offset:String) :RequestResultWithData<List<Track>>
 
     suspend fun getPersonalRecommendedTracks(territory:String,offset:String):RequestResultWithData<List<Track>>
+
+    suspend fun getPersonalInformation():RequestResultWithData<PersonalInformation>
 
 }

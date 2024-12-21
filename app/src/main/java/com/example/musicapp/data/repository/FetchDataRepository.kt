@@ -1,5 +1,6 @@
 package com.example.musicapp.data.repository
 
+import com.example.musicapp.bean.remote.PersonalInformation
 import com.example.musicapp.bean.remote.PlayList
 import com.example.musicapp.bean.remote.PlayListContent
 import com.example.musicapp.bean.remote.Track
@@ -22,4 +23,5 @@ class FetchDataRepository(private val saveUserInfoInApp: ISaveUserInfoInApp, req
     override suspend fun searchTrack(keyword: String,territory: String,offset: String): RequestResultWithData<List<Track>>  = fetchDataApiRequests.searchTrack(keyword,territory,saveUserInfoInApp.getToken(),offset,"50")
     override suspend fun getDailyRecommendedTracks(territory: String, offset: String): RequestResultWithData<List<Track>> = fetchDataApiRequests.getDailyRecommendedTracks(territory,offset,"50",saveUserInfoInApp.getToken())
     override suspend fun getPersonalRecommendedTracks( territory: String,offset: String): RequestResultWithData<List<Track>> = fetchDataApiRequests.getPersonalRecommendedTracks(territory,offset,"50",saveUserInfoInApp.getToken())
+    override suspend fun getPersonalInformation():RequestResultWithData<PersonalInformation> = fetchDataApiRequests.getPersonalInformation(saveUserInfoInApp.getToken())
 }

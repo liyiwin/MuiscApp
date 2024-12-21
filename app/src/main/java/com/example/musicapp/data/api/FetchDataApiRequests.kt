@@ -1,5 +1,6 @@
 package com.example.musicapp.data.api
 
+import com.example.musicapp.bean.remote.PersonalInformation
 import com.example.musicapp.bean.remote.PlayList
 import com.example.musicapp.bean.remote.PlayListContent
 import com.example.musicapp.bean.remote.Track
@@ -8,6 +9,7 @@ import com.example.musicapp.data.dao.RequestResultConverter.ChartsRequestResultC
 import com.example.musicapp.data.dao.RequestResultConverter.FeaturedPlayListRequestConverter
 import com.example.musicapp.data.dao.RequestResultConverter.FoundationDataRequestResultConverter
 import com.example.musicapp.data.dao.RequestResultConverter.NewHitsPlayListRequestResultConverter
+import com.example.musicapp.data.dao.RequestResultConverter.PersonalInformationConverter
 import com.example.musicapp.data.dao.RequestResultConverter.RecommendedTracksRequestConverter
 import com.example.musicapp.data.dao.RequestResultConverter.SearchResultRequestConverter
 import com.example.musicapp.data.requestResult.RequestResultWithData
@@ -26,6 +28,7 @@ class FetchDataApiRequests(private val requestInterface: GetRequestInterface) {
     private val foundationDataRequestResultConverter = FoundationDataRequestResultConverter()
     private val searchResultRequestConverter = SearchResultRequestConverter()
     private val recommendedTracksRequestConverter = RecommendedTracksRequestConverter()
+    private val personalInformationConverter = PersonalInformationConverter()
     suspend fun fetchTotalCharts(territory: String,token:String) = suspendCoroutine<RequestResultWithData<List<PlayList>>> {
         continuation ->
         requestInterface.getCharts(territory,"Bearer "+token).enqueue(object: ResponseHandler() {
@@ -127,6 +130,18 @@ class FetchDataApiRequests(private val requestInterface: GetRequestInterface) {
                 = continuation.resume(recommendedTracksRequestConverter.convertPersonalRecommendedTracksOnResponse(response))
                override fun receiveFailure(call: Call<ResponseBody>, t: Throwable)
                 = continuation.resume(recommendedTracksRequestConverter.convertPersonalRecommendedTracksOnFailure(call, t))
+            })
+    }
+
+    suspend fun getPersonalInformation(token:String)= suspendCoroutine<RequestResultWithData<PersonalInformation>> {
+            continuation ->
+            requestInterface.getPersonalInformation("Bearer "+token).enqueue(object :ResponseHandler(){
+                override fun receiveResponse( call: Call<ResponseBody>, response: Response<ResponseBody>)
+                = continuation.resume(personalInformationConverter.convertPersonalInformationOnResponse(response))
+
+                override fun receiveFailure(call: Call<ResponseBody>, t: Throwable)
+               = continuation.resume(personalInformationConverter.convertPersonalInformationOnFailure(call,t))
+
             })
     }
 
