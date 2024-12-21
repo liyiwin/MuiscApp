@@ -54,9 +54,9 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @RequiresApi(Build.VERSION_CODES.O)
-fun MainView(netWorkViewModel: NetWorkViewModel,externalPageNavigationController:(uri: Uri)->Unit){
+fun MainView(netWorkViewModel: NetWorkViewModel,externalPageNavigationController:(uri: Uri)->Unit,cleanAppDataController:()->Unit ){
     Theme {
-        AppContent(netWorkViewModel,externalPageNavigationController)
+        AppContent(netWorkViewModel,externalPageNavigationController,cleanAppDataController)
     }
  }
 @Composable
@@ -65,7 +65,7 @@ fun MainView(netWorkViewModel: NetWorkViewModel,externalPageNavigationController
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @RequiresApi(Build.VERSION_CODES.O)
-fun AppContent(netWorkViewModel: NetWorkViewModel,externalPageNavigationController:(uri: Uri)->Unit) {
+fun AppContent(netWorkViewModel: NetWorkViewModel,externalPageNavigationController:(uri: Uri)->Unit,cleanAppDataController:()->Unit ) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val isNavigationPageHidden = remember { mutableStateOf(true) }
     val screenStack = remember{ArrayList<Screen>()}
@@ -82,7 +82,7 @@ fun AppContent(netWorkViewModel: NetWorkViewModel,externalPageNavigationControll
             }
         },
         content = { padding ->
-            MainScreenContainer(screenStack,Modifier, screenState, isNavigationPageHidden,netWorkViewModel,externalPageNavigationController)
+            MainScreenContainer(screenStack,Modifier, screenState, isNavigationPageHidden,netWorkViewModel,externalPageNavigationController,cleanAppDataController)
         }
     )
 
@@ -100,8 +100,9 @@ fun MainScreenContainer(
     screenState: MutableState<Screen>,
     isNavigationPageHidden :MutableState<Boolean>,
     netWorkViewModel: NetWorkViewModel,
-    externalPageNavigationController:(uri: Uri)->Unit
-    ){
+    externalPageNavigationController:(uri: Uri)->Unit,
+    cleanAppDataController:()->Unit
+){
     Surface(
         modifier = modifier,
         color = MaterialTheme.colors.background
