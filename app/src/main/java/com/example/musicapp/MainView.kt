@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.musicapp.localDatase.RouterDataStorage
+import com.example.musicapp.page.FavoriteTracksPage
 import com.example.musicapp.page.HomePage
 import com.example.musicapp.page.LoginPage
 import com.example.musicapp.page.MusicPlayerPage
@@ -40,6 +41,7 @@ import com.example.musicapp.routing.Screen
 import com.example.musicapp.theme.Theme
 import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationBar
 import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationItem
+import com.example.musicapp.viewmodel.FavoriteTracksViewModel
 import com.example.musicapp.viewmodel.HomeViewModel
 import com.example.musicapp.viewmodel.LoginViewModel
 import com.example.musicapp.viewmodel.PersonalInformationViewModel
@@ -237,6 +239,17 @@ fun MainScreenContainer(
                     },
                     cleanAppDataController
                 )
+            }
+
+            is Screen.FavoriteTracksScreen -> {
+                isNavigationPageHidden.value = true
+                val viewModel = viewModel<FavoriteTracksViewModel>()
+                FavoriteTracksPage(viewModel = viewModel,
+                    onBackPress = {
+                        Back( screenStack = screenStack, screenState = screenState)
+                    },
+                    externalPageNavigationController
+                 )
             }
         }
     }
