@@ -5,14 +5,12 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.example.musicapp.bean.local.FavoriteTrack
 import com.example.musicapp.bean.remote.Track
+import com.example.musicapp.localDatase.sqLite.SQLiteParameterManager.favoriteTracksTableName
 
 class FavoriteTracksStorage(context: Context) :SQLiteDBHelper(context,),IFavoriteTracksStorage{
 
     private  var dbrw : SQLiteDatabase = this.writableDatabase
 
-    companion object{
-        val  tableName = "favoriteTracksTable"
-    }
 
 
     override fun addFavoriteTrack(track: Track) {
@@ -28,16 +26,16 @@ class FavoriteTracksStorage(context: Context) :SQLiteDBHelper(context,),IFavorit
         values.put("artistName", track.album.artist.name)
         values.put("artistUrl", track.album.artist.url)
         values.put("artistImageUrl", track.album.artist.images[0].url)
-        dbrw.insert(tableName, null, values)
+        dbrw.insert(favoriteTracksTableName, null, values)
     }
 
     override fun removeFavoriteTrack(trackId:String) {
-        dbrw.execSQL("delete from $tableName where id = '$trackId'");
+        dbrw.execSQL("delete from $favoriteTracksTableName where id = '$trackId'");
     }
 
     override fun getTotalFavoriteTracks(): ArrayList<FavoriteTrack> {
         val result =  ArrayList<FavoriteTrack>()
-        val c = dbrw.rawQuery(" SELECT * FROM $tableName ",null)
+        val c = dbrw.rawQuery(" SELECT * FROM $favoriteTracksTableName ",null)
 
         c.moveToFirst()
 
@@ -79,7 +77,7 @@ class FavoriteTracksStorage(context: Context) :SQLiteDBHelper(context,),IFavorit
     }
 
     private fun convertCreateSQL():String{
-        return "CREATE TABLE $tableName(" +
+        return "CREATE TABLE $favoriteTracksTableName(" +
                 "id text PRIMARY KEY NOT NULL" +
                 ", name text NOT NULL" +
                 ", url text NOT NULL" +
@@ -95,7 +93,7 @@ class FavoriteTracksStorage(context: Context) :SQLiteDBHelper(context,),IFavorit
     }
 
     private fun convertDropText():String{
-         return "DROP TABLE IF EXISTS $tableName"
+         return "DROP TABLE IF EXISTS $favoriteTracksTableName"
     }
 
 }

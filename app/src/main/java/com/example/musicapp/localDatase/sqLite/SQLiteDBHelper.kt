@@ -3,8 +3,9 @@ package com.example.musicapp.localDatase.sqLite
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.musicapp.localDatase.sqLite.SQLiteParameterManager.appDBName
 
-abstract class SQLiteDBHelper(context: Context) : SQLiteOpenHelper(context,"musicApp.db", null, 1){
+abstract class SQLiteDBHelper(context: Context) : SQLiteOpenHelper(context,appDBName, null, 1){
 
     override fun onCreate(db: SQLiteDatabase?) {
        createTable(db)
