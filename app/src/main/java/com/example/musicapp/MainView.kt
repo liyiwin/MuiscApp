@@ -48,6 +48,7 @@ import com.example.musicapp.viewmodel.HomeViewModel
 import com.example.musicapp.viewmodel.LocalTrackFolderDetailViewModel
 import com.example.musicapp.viewmodel.LoginViewModel
 import com.example.musicapp.viewmodel.LocalTrackFoldersVIewModel
+import com.example.musicapp.viewmodel.MusicPlayerViewModel
 import com.example.musicapp.viewmodel.PersonalInformationViewModel
 import com.example.musicapp.viewmodel.RecommendViewModel
 import com.example.musicapp.viewmodel.SearchViewModel
@@ -271,6 +272,19 @@ fun MainScreenContainer(
                     }
                 )
 
+            }
+            is Screen.MusicPlayerScreen -> {
+                isNavigationPageHidden.value = true
+              val viewModel = viewModel<MusicPlayerViewModel>()
+               MusicPlayerPage(
+                   viewModel,
+                   navigationController = { screen: Screen ->
+                       Navigate(
+                           screenStack = screenStack,
+                           screenState = screenState,
+                           page = screen)
+                   }
+               )
             }
         }
     }
