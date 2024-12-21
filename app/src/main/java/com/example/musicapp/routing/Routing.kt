@@ -13,6 +13,9 @@ sealed class  Screen(val titleResId:Int){
     class MusicPlayerScreen:Screen(R.string.musicPlayerPage)
 
     class LocalTrackFoldersScreen:Screen(R.string.localTrackFoldersPage)
+
+    class LocalTrackFolderDetailPage:Screen(R.string.localTrackDetailPage)
+
     class SettingScreen:Screen(R.string.settingPage)
 
     class TrackListScreen:Screen(R.string.trackListPage)
