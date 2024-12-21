@@ -21,11 +21,11 @@ class FavoriteTracksStorage(context: Context) :SQLiteDBHelper(context,),IFavorit
         values.put("albumId", track.album.id)
         values.put("albumName", track.album.name)
         values.put("albumUrl", track.album.url)
-        values.put("albumImageUrl", track.album.images[0].url)
+        values.put("albumImageUrl", track.album.images[1].url)
         values.put("artistId", track.album.artist.id)
         values.put("artistName", track.album.artist.name)
         values.put("artistUrl", track.album.artist.url)
-        values.put("artistImageUrl", track.album.artist.images[0].url)
+        values.put("artistImageUrl", track.album.artist.images[1].url)
         dbrw.insert(favoriteTracksTableName, null, values)
     }
 
