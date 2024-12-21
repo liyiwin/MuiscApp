@@ -94,4 +94,10 @@ interface GetRequestInterface {
         @Query("limit") limit:String,
         @Header("Authorization") token:String,
     ): Call<ResponseBody>
+
+    @GET("/v1.1/me")
+    @Headers("Content-Type: application/json")
+    fun getPersonalInformation(
+      @Header("Authorization") token:String,
+    ): Call<ResponseBody>
 }
