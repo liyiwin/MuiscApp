@@ -51,7 +51,6 @@ import com.example.kkbox_music_app.components.dialog.SuccessDialog
 import com.example.musicapp.bean.local.TrackListTransferData
 import com.example.musicapp.components.GridViewPager
 import com.example.musicapp.components.drawDropShadow
-import com.example.musicapp.components.drawInnerShadow
 import com.example.musicapp.bean.remote.PlayList
 import com.example.musicapp.localDatase.RouterDataStorage
 import com.example.musicapp.routing.Screen
@@ -154,14 +153,25 @@ fun RequestStateDialog(viewModel: HomeViewModel){
 fun ChartList(viewModel: HomeViewModel,onChartSelected:(PlayList) -> Unit){
     val scrollState = rememberScrollState()
     val chartlist = viewModel.getTotalChartList().observeAsState()
-    Row(
-        modifier = Modifier.horizontalScroll(
-            state = scrollState,
+    Surface(
+        color = Color("#FDFDFD".toColorInt()),
+        modifier = Modifier
+            .drawDropShadow(
+            color = Color.Gray,
+            0.9f,
+             offsetY = 5.dp,
+            shadowRadius = 3.dp,
         )
-    ){
-        for( i in chartlist.value!!.indices){
-            RoundCornerItemView(chartlist.value!![i].images[1].url){
-                onChartSelected.invoke(chartlist.value!![i])
+    ) {
+        Row(
+            modifier = Modifier.horizontalScroll(
+                state = scrollState,
+            )
+        ){
+            for( i in chartlist.value!!.indices){
+                RoundCornerItemView(chartlist.value!![i].images[1].url){
+                    onChartSelected.invoke(chartlist.value!![i])
+                }
             }
         }
     }
@@ -275,16 +285,6 @@ fun MainContainer(
             .padding( top = 25.dp)
             .fillMaxWidth()
             .fillMaxHeight()
-            .drawInnerShadow(
-                color = Color.DarkGray,
-                0.9f,
-                left = 10F,
-                top = 10F,
-                right = 10F,
-                bottom = 0F,
-                blur = 30F,
-                shadowRadius = 3.dp,
-            )
     ){
         Column(
             modifier = Modifier
