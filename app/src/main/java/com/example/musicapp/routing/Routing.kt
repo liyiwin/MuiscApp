@@ -23,4 +23,7 @@ sealed class  Screen(val titleResId:Int){
     class OauthScreen:Screen(R.string.oauthPage)
 
     class LoginScreen:Screen(R.string.oauthPage)
+
+    class PersonalInformationScreen:Screen(R.string.personalInformationPage)
+
 }
