@@ -10,7 +10,7 @@ import com.example.musicapp.data.requestResult.RequestResultWithData
 import com.example.musicapp.localDatase.ISaveAppSettingInApp
 import com.example.musicapp.localDatase.ISaveUserInfoInApp
 import com.example.musicapp.localDatase.RouterDataStorage
-import com.example.musicapp.localDatase.sqLite.FavoriteTracksStorage
+import com.example.musicapp.localDatase.sqLite.IFavoriteTracksStorage
 import com.example.musicapp.viewmodel.state.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ class TrackDetailViewModel@Inject constructor(
     private val repo: IFetchDataRepository,
     private val saveUserInfoInApp: ISaveUserInfoInApp,
     private val saveAppSettingInApp: ISaveAppSettingInApp,
-    private val favoriteTracksStorage: FavoriteTracksStorage
+    private val favoriteTracksStorage: IFavoriteTracksStorage
 ): ViewModel()  {
 
     private val trackName : MutableLiveData<String> by lazy { MutableLiveData<String>("") }
