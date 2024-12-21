@@ -9,6 +9,14 @@ object RouterDataStorage {
     val trackStack = ArrayList<Track>()
     val tracklistTitle = ArrayList<String>()
     private var authCode = ""
+
+    fun cleanData(){
+        trackListTransferDataStack.clear()
+        trackStack.clear()
+        tracklistTitle.clear()
+        authCode = ""
+    }
+
     fun putTrackListTransferData(data:TrackListTransferData){
         trackListTransferDataStack.add(data)
     }
