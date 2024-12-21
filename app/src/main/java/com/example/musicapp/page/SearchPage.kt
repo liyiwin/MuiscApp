@@ -60,7 +60,6 @@ import com.example.kkbox_music_app.components.dialog.SuccessDialog
 import com.example.musicapp.R
 import com.example.musicapp.bean.remote.Track
 import com.example.musicapp.components.drawDropShadow
-import com.example.musicapp.components.drawInnerShadow
 import com.example.musicapp.components.isScrolledToEnd
 import com.example.musicapp.localDatase.RouterDataStorage
 import com.example.musicapp.routing.Screen
@@ -76,10 +75,8 @@ fun SearchPage(viewModel: SearchViewModel, navigationController:(screen:Screen)-
     RequestStateDialog(viewModel)
     Column(
         modifier = Modifier.fillMaxSize()
-            .background(Color("#FFFDF6".toColorInt()))
+            .background(Color("#FFFFFF".toColorInt()))
             .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Top))
-
-
     ){
         SearchTextField(viewModel)
         SearchResultContainer(viewModel){
@@ -165,7 +162,8 @@ fun SearchTextField(viewModel:SearchViewModel){
             modifier = Modifier .fillMaxWidth(),
             shape = RoundedCornerShape(10.dp),
             colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color("#FFFDF6".toColorInt()),
+                textColor = Color.Black,
+                backgroundColor = Color("#FFFFFF".toColorInt()),
                 cursorColor = Color.Black,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
@@ -248,7 +246,7 @@ fun SearchResultItem(track: Track,itemSelected:(Track)->Unit){
         Row(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
-                .background(Color("#FFFAED".toColorInt()))
+                .background(Color("#FFFFFF".toColorInt()))
                 .padding(20.dp)
         ){
 
