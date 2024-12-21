@@ -44,10 +44,10 @@ fun AlarmDialog(title:String, message:String, modifier: Modifier,onConfirm:()->U
 @Composable
 fun AlarmDialogUI(title:String, message:String, modifier: Modifier,onConfirm:()->Unit,onCancel:()->Unit){
     Box(
-        modifier = modifier.size(350.dp),
+        modifier = modifier.size(500.dp),
         contentAlignment = Alignment.Center
     ){
-        val mainSIze = 220.dp
+        val mainSIze = 250.dp
         val iconSize = 70.dp
         Card (
             shape = RoundedCornerShape(18.dp),

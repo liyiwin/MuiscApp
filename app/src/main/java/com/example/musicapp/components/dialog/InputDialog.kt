@@ -28,12 +28,12 @@ import com.example.musicapp.components.drawDropShadow
 @ExperimentalComposeUiApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun  InputDialog(title:String, modifier: Modifier, onConfirm:(String)->Unit){
+fun  InputDialog(title:String, modifier: Modifier, onConfirm:(String)->Unit, onCancel:()->Unit){
     Dialog(
         onDismissRequest = {},
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ){
-        InputDialogUI(title, modifier, onConfirm)
+        InputDialogUI(title, modifier, onConfirm,onCancel)
     }
 }
 
@@ -41,7 +41,7 @@ fun  InputDialog(title:String, modifier: Modifier, onConfirm:(String)->Unit){
 @ExperimentalComposeUiApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun  InputDialogUI(title:String, modifier: Modifier, onConfirm:(String)->Unit){
+fun  InputDialogUI(title:String, modifier: Modifier, onConfirm:(String)->Unit ,onCancel:()->Unit){
 
     var textValue by remember { mutableStateOf(TextFieldValue("")) }
 
@@ -49,18 +49,18 @@ fun  InputDialogUI(title:String, modifier: Modifier, onConfirm:(String)->Unit){
         modifier = modifier.size(350.dp),
         contentAlignment = Alignment.Center
     ){
-        val mainSIze = 220.dp
+        val mainSIze = 250.dp
         val iconSize = 70.dp
         Card (
             shape = RoundedCornerShape(18.dp),
-            backgroundColor = Color(0xFFE6E6E6),
+            backgroundColor = Color.White,
             modifier = modifier.size(mainSIze)
 ,
         ){
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = iconSize/2+20.dp),
+                    .padding(top = iconSize / 2 + 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
                 Text(
@@ -75,64 +75,112 @@ fun  InputDialogUI(title:String, modifier: Modifier, onConfirm:(String)->Unit){
                     value = textValue,
                     modifier = Modifier.fillMaxWidth(),
                     colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = Color(0xFFE6E6E6),
+                        backgroundColor = Color.White,
                     ),
                     onValueChange = { newText ->
                         textValue = newText
                     }
                 )
-                Card (
-                    shape = RoundedCornerShape(20.dp),
-//                    backgroundColor = Color(0xFF00CCFF),
-                    modifier = modifier
-                        .padding(top =20.dp)
-                        .drawDropShadow(
-                            Color.DarkGray,
-                            0.7f,
-                            topLeftBorderRadius =20.dp,
-                            topRightBorderRadius = 20.dp,
-                            bottomLeftBorderRadius = 20.dp,
-                            bottomRightBorderRadius = 20.dp,
-                            shadowRadius = 2.dp,
-                            offsetX = 5.dp,
-                            offsetY = 2.dp,
-                        )
-                        .drawDropShadow(
-                            Color.White,
-                            0.9f,
-                            topLeftBorderRadius = 20.dp,
-                            topRightBorderRadius = 20.dp,
-                            bottomLeftBorderRadius = 20.dp,
-                            bottomRightBorderRadius = 20.dp,
-                            shadowRadius = 3.dp,
-                            offsetX = -6.dp,
-                            offsetY = -0.dp,
-                        ),
-                    onClick = {
-                        onConfirm.invoke(textValue.text)
-                    }
+                Row (
+                    modifier = Modifier   .fillMaxWidth()
                 ){
-                    Text(
-                        modifier = Modifier.padding(10.dp),
-                        text = "確認",
-                        color = Color.Black,
-                        textAlign = TextAlign.Center,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
+                    Card (
+                        shape = RoundedCornerShape(20.dp),
+                        backgroundColor = Color(0xFF00CCFF),
+                        modifier = modifier
+                            .padding(top =20.dp, start = 10.dp,end =10.dp)
+                            .weight(1f)
+                            .drawDropShadow(
+                                Color.DarkGray,
+                                0.7f,
+                                topLeftBorderRadius =20.dp,
+                                topRightBorderRadius = 20.dp,
+                                bottomLeftBorderRadius = 20.dp,
+                                bottomRightBorderRadius = 20.dp,
+                                shadowRadius = 2.dp,
+                                offsetX = 5.dp,
+                                offsetY = 2.dp,
+                            )
+                            .drawDropShadow(
+                                Color.White,
+                                0.9f,
+                                topLeftBorderRadius = 20.dp,
+                                topRightBorderRadius = 20.dp,
+                                bottomLeftBorderRadius = 20.dp,
+                                bottomRightBorderRadius = 20.dp,
+                                shadowRadius = 3.dp,
+                                offsetX = -6.dp,
+                                offsetY = -0.dp,
+                            ),
+                        onClick = {
+                            onConfirm.invoke(textValue.text)
+                        }
+                    ){
+                        Text(
+                            modifier = Modifier.padding(10.dp),
+                            text = "確認",
+                            color = Color.Black,
+                            textAlign = TextAlign.Center,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+
+                    Card (
+                        shape = RoundedCornerShape(20.dp),
+                        backgroundColor = Color(0xFF00CCFF),
+                        modifier = modifier
+                            .padding(top =20.dp, start = 10.dp,end =10.dp)
+                            .weight(1f)
+                            .drawDropShadow(
+                                Color.DarkGray,
+                                0.7f,
+                                topLeftBorderRadius =20.dp,
+                                topRightBorderRadius = 20.dp,
+                                bottomLeftBorderRadius = 20.dp,
+                                bottomRightBorderRadius = 20.dp,
+                                shadowRadius = 2.dp,
+                                offsetX = 5.dp,
+                                offsetY = 2.dp,
+                            )
+                            .drawDropShadow(
+                                Color.White,
+                                0.9f,
+                                topLeftBorderRadius = 20.dp,
+                                topRightBorderRadius = 20.dp,
+                                bottomLeftBorderRadius = 20.dp,
+                                bottomRightBorderRadius = 20.dp,
+                                shadowRadius = 3.dp,
+                                offsetX = -6.dp,
+                                offsetY = -0.dp,
+                            ),
+                        onClick = {
+                            onCancel.invoke()
+                        }
+                    ){
+                        Text(
+                            modifier = Modifier.padding(10.dp),
+                            text = "取消",
+                            color = Color.Black,
+                            textAlign = TextAlign.Center,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                 }
             }
         }
         Box(
             modifier = modifier
-                .offset(x = 0.dp, y = -((mainSIze)/ 2))
+                .offset(x = 0.dp, y = -((mainSIze) / 2))
                 .size(iconSize),
             contentAlignment = Alignment.Center
         ){
             Card (
                 shape = RoundedCornerShape(100.dp),
                 backgroundColor = Color(0xFF00CCFF),
-                modifier = modifier.size(iconSize)
+                modifier = modifier
+                    .size(iconSize)
                     .drawDropShadow(
                         Color.DarkGray,
                         0.7f,
@@ -157,7 +205,9 @@ fun  InputDialogUI(title:String, modifier: Modifier, onConfirm:(String)->Unit){
                     ),
             ){
                 Icon(
-                    modifier = modifier.size(40.dp).padding(20.dp),
+                    modifier = modifier
+                        .size(40.dp)
+                        .padding(20.dp),
                     contentDescription = "",
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_promote_white),
                     tint = Color.White
