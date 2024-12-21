@@ -27,6 +27,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.musicapp.localDatase.RouterDataStorage
 import com.example.musicapp.page.FavoriteTracksPage
 import com.example.musicapp.page.HomePage
+import com.example.musicapp.page.localTrackFolderDetail.LocalTrackFolderDetailPage
 import com.example.musicapp.page.LoginPage
 import com.example.musicapp.page.localTrackFolders.LocalTrackFoldersPage
 import com.example.musicapp.page.MusicPlayerPage
@@ -44,6 +45,7 @@ import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationBar
 import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationItem
 import com.example.musicapp.viewmodel.FavoriteTracksViewModel
 import com.example.musicapp.viewmodel.HomeViewModel
+import com.example.musicapp.viewmodel.LocalTrackFolderDetailViewModel
 import com.example.musicapp.viewmodel.LoginViewModel
 import com.example.musicapp.viewmodel.LocalTrackFoldersVIewModel
 import com.example.musicapp.viewmodel.PersonalInformationViewModel
@@ -253,6 +255,22 @@ fun MainScreenContainer(
                     },
                     externalPageNavigationController
                  )
+            }
+
+            
+            is Screen.LocalTrackFolderDetailPage -> {
+                isNavigationPageHidden.value = true
+                val viewModel = viewModel<LocalTrackFolderDetailViewModel>()
+                LocalTrackFolderDetailPage(
+                    viewModel,
+                    navigationController = {  screen: Screen ->
+                        Navigate(
+                            screenStack = screenStack,
+                            screenState = screenState,
+                            page = screen)
+                    }
+                )
+
             }
         }
     }
