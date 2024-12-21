@@ -2,12 +2,15 @@ package com.example.musicapp.localDatase
 
 import com.example.musicapp.bean.local.TrackListTransferData
 import com.example.musicapp.bean.remote.Track
+import java.io.File
 
 object RouterDataStorage {
 
     val  trackListTransferDataStack = ArrayList<TrackListTransferData>()
     val trackStack = ArrayList<Track>()
     val tracklistTitle = ArrayList<String>()
+    var localPlayList : File? = null
+    var localTrackIndex:Int =0
     private var authCode = ""
 
     fun cleanData(){
@@ -63,4 +66,5 @@ object RouterDataStorage {
     fun getAuthCode():String{
         return this.authCode
     }
+
 }
