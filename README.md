@@ -13,12 +13,24 @@
 
 
 # App 功能
-- 查看目前流行的歌曲
-- 搜尋歌曲
-- 查看個人推薦歌曲
-- 選擇歌曲，並前往 Youtube 或 KKBox 網站播放
-- 收藏歌曲
-- 建立離線播放清單，播放手機MP3
+- ### 查看目前流行的歌曲
+- ### 搜尋歌曲
+- ### 查看個人推薦歌曲
+- ### 選擇歌曲，並前往 Youtube 或 KKBox 網站播放
+- ### 收藏歌曲
+- ### 建立離線播放清單，播放手機MP3
+
+# 設計架構 
+
+- ### MVVM 使用 ViewModel
+
+# 使用技術
+
+- ### Kotlin coroutines
+- ### Retrofit
+- ### Hilt/Dagger
+- ### Compose UI
+- ### SQLite
 
 
 
