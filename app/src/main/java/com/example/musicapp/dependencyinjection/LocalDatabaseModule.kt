@@ -6,6 +6,7 @@ import com.example.musicapp.localDatase.ISaveUserInfoInApp
 import com.example.musicapp.localDatase.SaveAppSettingInApp
 import com.example.musicapp.localDatase.SaveUserInfoInApp
 import com.example.musicapp.localDatase.sqLite.FavoriteTracksStorage
+import com.example.musicapp.localDatase.sqLite.IFavoriteTracksStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +27,7 @@ class LocalDatabaseModule {
 
     @Singleton
     @Provides
-    fun ProvideFavoriteTracksStorage(@ApplicationContext context: Context):FavoriteTracksStorage = FavoriteTracksStorage(context)
+    fun ProvideFavoriteTracksStorage(@ApplicationContext context: Context): IFavoriteTracksStorage = FavoriteTracksStorage(context)
 
 
 }
