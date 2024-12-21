@@ -8,6 +8,10 @@ class SaveUserInfoInApp(private val context: Context):ISaveUserInfoInApp  {
 
     private fun getSharePreference() = context.getSharedPreferences(dataToken, Context.MODE_PRIVATE)
 
+    override fun cleanData(){
+        getSharePreference().edit().clear().apply()
+    }
+
     override fun setToken(token:String) = getSharePreference().edit().putString("token",token).apply();
 
     override fun getToken():String = getSharePreference().getString("token","")!!;

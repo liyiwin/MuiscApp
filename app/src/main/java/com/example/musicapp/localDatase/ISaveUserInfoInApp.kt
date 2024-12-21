@@ -2,6 +2,8 @@ package com.example.musicapp.localDatase
 
 interface ISaveUserInfoInApp {
 
+    fun cleanData()
+
     fun setToken(token:String)
 
     fun getToken():String
