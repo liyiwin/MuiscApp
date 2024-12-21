@@ -118,18 +118,29 @@ fun Modifier.drawInnerShadow(
         backgroundFrameWorkPaint.setMaskFilter(BlurMaskFilter(blur, BlurMaskFilter.Blur.INNER));
         backgroundFrameWorkPaint.setColor(backgroundColor)
 
-        val path = Path()
-        val rect =
-            Rect(-left.toDp().toPx(),-top.toDp().toPx(), ((this.size.width+right).toDp()).toPx(),((this.size.height+bottom).toDp()).toPx())
-        path.addRoundRect(
-            RoundRect(rect,
+        val backgroundRectPath = Path()
+        val  backgroundRect = Rect(0F,0F, ((this.size.width).toDp()).toPx(),((this.size.height).toDp()).toPx())
+        backgroundRectPath.addRoundRect(
+            RoundRect(backgroundRect ,
             topLeft   =    CornerRadius( topLeftBorderRadius.toPx(),  topLeftBorderRadius.toPx()),
             topRight = CornerRadius(topRightBorderRadius.toPx(),  topRightBorderRadius.toPx()),
             bottomLeft = CornerRadius(bottomLeftBorderRadius.toPx(),  topRightBorderRadius.toPx()),
             bottomRight = CornerRadius(bottomRightBorderRadius.toPx(),  topRightBorderRadius.toPx())
             )
         )
-        it.drawPath(path,backgroundPaint)
-        it.drawPath(path, shadowPaint)
+
+        val shadowRectPath = Path()
+        val shadowRect =  Rect(((left).toDp()).toPx(),((top).toDp()).toPx(), ((this.size.width-right).toDp()).toPx(),((this.size.height-bottom).toDp()).toPx())
+
+        shadowRectPath.addRoundRect(
+            RoundRect(shadowRect ,
+                topLeft   =    CornerRadius( topLeftBorderRadius.toPx(),  topLeftBorderRadius.toPx()),
+                topRight = CornerRadius(topRightBorderRadius.toPx(),  topRightBorderRadius.toPx()),
+                bottomLeft = CornerRadius(bottomLeftBorderRadius.toPx(),  topRightBorderRadius.toPx()),
+                bottomRight = CornerRadius(bottomRightBorderRadius.toPx(),  topRightBorderRadius.toPx())
+            )
+        )
+        it.drawPath(backgroundRectPath,backgroundPaint)
+        it.drawPath(shadowRectPath, shadowPaint)
     }
 }
