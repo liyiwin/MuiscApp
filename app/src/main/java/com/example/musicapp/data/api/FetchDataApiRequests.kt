@@ -28,37 +28,37 @@ class FetchDataApiRequests(private val requestInterface: GetRequestInterface) {
     private val recommendedTracksRequestConverter = RecommendedTracksRequestConverter()
     suspend fun fetchTotalCharts(territory: String,token:String) = suspendCoroutine<RequestResultWithData<List<PlayList>>> {
         continuation ->
-        requestInterface.getCharts(territory,"Bearer "+token).enqueue(object: Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) = continuation.resume(chartsRequestResultConverter.ConvertGetTotalChartsOnResponse(response))
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) = continuation.resume(chartsRequestResultConverter.ConvertGetTotalChartsOnFailure(call, t))
+        requestInterface.getCharts(territory,"Bearer "+token).enqueue(object: ResponseHandler() {
+            override fun receiveResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) = continuation.resume(chartsRequestResultConverter.ConvertGetTotalChartsOnResponse(response))
+            override fun receiveFailure(call: Call<ResponseBody>, t: Throwable) = continuation.resume(chartsRequestResultConverter.ConvertGetTotalChartsOnFailure(call, t))
          }
        );
     }
 
     suspend fun fetchTotalFeaturedPlayList(territory: String,token:String) = suspendCoroutine<RequestResultWithData<List<PlayList>>> {
             continuation ->
-            requestInterface.getFeaturedPlayLists(territory, "Bearer "+token).enqueue(object:Callback<ResponseBody>{
-                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) = continuation.resume(featuredPlayListRequestConverter.ConvertGetTotalFeaturedPlayListOnResponse(response));
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) = continuation.resume(featuredPlayListRequestConverter.ConvertGetTotalFeaturedPlayListOnFailure(call, t))
+            requestInterface.getFeaturedPlayLists(territory, "Bearer "+token).enqueue(object:ResponseHandler(){
+                override fun receiveResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) = continuation.resume(featuredPlayListRequestConverter.ConvertGetTotalFeaturedPlayListOnResponse(response));
+                override fun receiveFailure(call: Call<ResponseBody>, t: Throwable) = continuation.resume(featuredPlayListRequestConverter.ConvertGetTotalFeaturedPlayListOnFailure(call, t))
               }
             );
     }
 
     suspend fun fetchTotalNewHitsPlayLists(territory: String,token:String) = suspendCoroutine<RequestResultWithData<List<PlayList>>> {
          continuation ->
-        requestInterface.getNewHitsPlayLists(territory,"Bearer "+token).enqueue(object:Callback<ResponseBody>{
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) = continuation.resume(newHitsPlayListRequestResultConvert.convertGetTotalNewHitsPlayListsOnResponse(response))
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) = continuation.resume(newHitsPlayListRequestResultConvert.convertGetTotalNewHitsPlayListsOnFailure(call, t))
+        requestInterface.getNewHitsPlayLists(territory,"Bearer "+token).enqueue(object:ResponseHandler(){
+            override fun receiveResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) = continuation.resume(newHitsPlayListRequestResultConvert.convertGetTotalNewHitsPlayListsOnResponse(response))
+            override fun receiveFailure(call: Call<ResponseBody>, t: Throwable) = continuation.resume(newHitsPlayListRequestResultConvert.convertGetTotalNewHitsPlayListsOnFailure(call, t))
            }
         );
     }
 
     suspend fun fetchTracksInChart(playListId:String, offset:String, limit:String,  territory:String, token:String ) = suspendCoroutine<RequestResultWithData<PlayListContent>> {
             continuation ->
-        requestInterface.getTracksInChart(playListId,offset,limit,territory,"Bearer "+token).enqueue(object:Callback<ResponseBody>{
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>)
+        requestInterface.getTracksInChart(playListId,offset,limit,territory,"Bearer "+token).enqueue(object:ResponseHandler(){
+            override fun receiveResponse(call: Call<ResponseBody>, response: Response<ResponseBody>)
                     = continuation.resume(chartsRequestResultConverter.ConvertGetChartOnResponse(response))
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable)
+            override fun receiveFailure(call: Call<ResponseBody>, t: Throwable)
                     = continuation.resume(chartsRequestResultConverter.ConvertGetChartOnFailure(call, t))
 
         });
@@ -66,21 +66,21 @@ class FetchDataApiRequests(private val requestInterface: GetRequestInterface) {
 
     suspend  fun fetchTracksInFeaturedPlayList(playListId:String,  offset:String, limit:String,  territory:String, token:String)= suspendCoroutine<RequestResultWithData<PlayListContent>>{
             continuation ->
-        requestInterface.getTracksInFeaturedPlayList( playListId,offset,limit,territory,"Bearer "+token).enqueue(object:Callback<ResponseBody>{
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>)
+        requestInterface.getTracksInFeaturedPlayList( playListId,offset,limit,territory,"Bearer "+token).enqueue(object:ResponseHandler(){
+            override fun receiveResponse(call: Call<ResponseBody>, response: Response<ResponseBody>)
                     = continuation.resume(featuredPlayListRequestConverter.ConvertGetFeaturedPlayListOnResponse(response))
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable)
+            override fun receiveFailure(call: Call<ResponseBody>, t: Throwable)
                     = continuation.resume(featuredPlayListRequestConverter.ConvertGetFeaturedPlayListOnFailure( call,t))
         });
     }
 
     suspend fun fetchTracksInNewHitsPlayList(playListId:String,offset:String, limit:String,  territory:String, token:String)= suspendCoroutine<RequestResultWithData<PlayListContent>>{
             continuation ->
-        requestInterface.getTracksInNewHitsPlayList(playListId,offset,limit,territory,"Bearer "+token).enqueue(object:Callback<ResponseBody>{
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>)
+        requestInterface.getTracksInNewHitsPlayList(playListId,offset,limit,territory,"Bearer "+token).enqueue(object:ResponseHandler(){
+            override fun receiveResponse(call: Call<ResponseBody>, response: Response<ResponseBody>)
                     = continuation.resume(newHitsPlayListRequestResultConvert.convertGetTracksInNewHitsPlayListOnResponse(response))
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable)
+            override fun receiveFailure(call: Call<ResponseBody>, t: Throwable)
                     = continuation.resume(newHitsPlayListRequestResultConvert.convertGetTracksInNewHitsPlayListOnFailure(call, t))
 
         })
@@ -88,10 +88,10 @@ class FetchDataApiRequests(private val requestInterface: GetRequestInterface) {
 
     suspend fun fetchTopTracksOfArtist(artistId:String, offset:String,limit:String,territory:String, token:String) = suspendCoroutine<RequestResultWithData<List<Track>>>{
             continuation ->
-        requestInterface.getTopTracksOfArtist(artistId, offset,limit,territory, "Bearer "+token).enqueue(object:Callback<ResponseBody>{
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>)
+        requestInterface.getTopTracksOfArtist(artistId, offset,limit,territory, "Bearer "+token).enqueue(object:ResponseHandler(){
+            override fun receiveResponse(call: Call<ResponseBody>, response: Response<ResponseBody>)
                     = continuation.resume(foundationDataRequestResultConverter.convertGetTopTracksOfArtistOnResponse(response))
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable)
+            override fun receiveFailure(call: Call<ResponseBody>, t: Throwable)
                     = continuation.resume(foundationDataRequestResultConverter.convertGetTopTracksOfArtistOnFailure(call,t))
 
         });
@@ -99,11 +99,11 @@ class FetchDataApiRequests(private val requestInterface: GetRequestInterface) {
 
     suspend fun searchTrack(keyword:String, territory:String, token:String,offset:String,limit:String) = suspendCoroutine<RequestResultWithData<List<Track>>>{
             continuation ->
-        requestInterface.search(keyword,"track", territory, "Bearer "+token,offset,limit).enqueue(object:Callback<ResponseBody>{
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>)
+        requestInterface.search(keyword,"track", territory, "Bearer "+token,offset,limit).enqueue(object:ResponseHandler(){
+            override fun receiveResponse(call: Call<ResponseBody>, response: Response<ResponseBody>)
                     = continuation.resume(searchResultRequestConverter.convertSearchTrackOnResponse(response))
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable)
+            override fun receiveFailure(call: Call<ResponseBody>, t: Throwable)
                     = continuation.resume(searchResultRequestConverter.convertSearchTrackOnFailure(call, t))
 
         });
@@ -111,10 +111,10 @@ class FetchDataApiRequests(private val requestInterface: GetRequestInterface) {
 
     suspend fun getDailyRecommendedTracks(territory:String,offset:String,limit:String,token:String) = suspendCoroutine<RequestResultWithData<List<Track>>> {
             continuation ->
-            requestInterface.getDailyRecommendedTracks(territory, offset, limit, "Bearer "+token).enqueue(object:Callback<ResponseBody>{
-                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody> )
+            requestInterface.getDailyRecommendedTracks(territory, offset, limit, "Bearer "+token).enqueue(object:ResponseHandler(){
+                override fun receiveResponse(call: Call<ResponseBody>, response: Response<ResponseBody> )
                 = continuation.resume(recommendedTracksRequestConverter.convertDailyRecommendedTrackOnResponses(response))
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable)
+                override fun receiveFailure(call: Call<ResponseBody>, t: Throwable)
                 = continuation.resume(recommendedTracksRequestConverter.convertDailyRecommendedTrackOnFailure(call, t))
 
             })
@@ -122,10 +122,10 @@ class FetchDataApiRequests(private val requestInterface: GetRequestInterface) {
 
     suspend fun getPersonalRecommendedTracks(territory:String,offset:String,limit:String,token:String) = suspendCoroutine<RequestResultWithData<List<Track>>> {
             continuation ->
-            requestInterface.getPersonalRecommendedTracks(territory, offset, limit,"Bearer "+ token).enqueue(object:Callback<ResponseBody>{
-                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody> )
+            requestInterface.getPersonalRecommendedTracks(territory, offset, limit,"Bearer "+ token).enqueue(object:ResponseHandler(){
+                override fun receiveResponse(call: Call<ResponseBody>, response: Response<ResponseBody> )
                 = continuation.resume(recommendedTracksRequestConverter.convertPersonalRecommendedTracksOnResponse(response))
-               override fun onFailure(call: Call<ResponseBody>, t: Throwable)
+               override fun receiveFailure(call: Call<ResponseBody>, t: Throwable)
                 = continuation.resume(recommendedTracksRequestConverter.convertPersonalRecommendedTracksOnFailure(call, t))
             })
     }

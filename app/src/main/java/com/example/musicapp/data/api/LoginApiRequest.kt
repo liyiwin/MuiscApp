@@ -17,17 +17,17 @@ class LoginApiRequest(private val requestInterface: LoginRequestInterface)  {
     private val loginResultConverter = LoginResultConverter()
 
     suspend fun requestLogin(grantType:String,code:String,clientId:String, clientSecret:String) = suspendCoroutine<RequestResultWithData<LoginResult>> { continuation ->
-        requestInterface.doLogin(grantType,code,clientId,clientSecret).enqueue(object :Callback<ResponseBody>{
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>)=continuation.resume(loginResultConverter.convertLoginResult(response))
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) = continuation.resume(loginResultConverter.convertLoginFailure(call,t))
+        requestInterface.doLogin(grantType,code,clientId,clientSecret).enqueue(object: ResponseHandler() {
+            override fun receiveResponse(call: Call<ResponseBody>, response: Response<ResponseBody>)=continuation.resume(loginResultConverter.convertLoginResult(response))
+            override fun  receiveFailure(call: Call<ResponseBody>, t: Throwable) = continuation.resume(loginResultConverter.convertLoginFailure(call,t))
 
         })
     }
 
     suspend fun requestReLogin(grantType:String,refreshToken:String,authorization:String) = suspendCoroutine<RequestResultWithData<ReLoginResult>> { continuation ->
-        requestInterface.doReLogin(grantType, refreshToken, authorization).enqueue(object :Callback<ResponseBody>{
-            override fun onResponse( call: Call<ResponseBody>,response: Response<ResponseBody>) = continuation.resume(loginResultConverter.convertReLoginResult(response))
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) = continuation.resume(loginResultConverter.convertReLoginFailure(call, t))
+        requestInterface.doReLogin(grantType, refreshToken, authorization).enqueue(object: ResponseHandler() {
+            override fun  receiveResponse( call: Call<ResponseBody>,response: Response<ResponseBody>) = continuation.resume(loginResultConverter.convertReLoginResult(response))
+            override fun  receiveFailure(call: Call<ResponseBody>, t: Throwable) = continuation.resume(loginResultConverter.convertReLoginFailure(call, t))
         })
    }
 
