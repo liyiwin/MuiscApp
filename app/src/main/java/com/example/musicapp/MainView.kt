@@ -29,6 +29,7 @@ import com.example.musicapp.page.HomePage
 import com.example.musicapp.page.LoginPage
 import com.example.musicapp.page.MusicPlayerPage
 import com.example.musicapp.page.OathPage
+import com.example.musicapp.page.PersonalInformationPage
 import com.example.musicapp.page.RecommendPage
 import com.example.musicapp.page.SearchPage
 import com.example.musicapp.page.SettingPage
@@ -41,6 +42,7 @@ import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationBar
 import com.example.musicapp.viewcomponent.bottomnavigation.BottomNavigationItem
 import com.example.musicapp.viewmodel.HomeViewModel
 import com.example.musicapp.viewmodel.LoginViewModel
+import com.example.musicapp.viewmodel.PersonalInformationViewModel
 import com.example.musicapp.viewmodel.RecommendViewModel
 import com.example.musicapp.viewmodel.SearchViewModel
 import com.example.musicapp.viewmodel.TrackDetailViewModel
@@ -217,6 +219,23 @@ fun MainScreenContainer(
                         screenState = screenState,
                         page = screen)
                     }
+                )
+            }
+
+            is Screen.PersonalInformationScreen ->  {
+                isNavigationPageHidden.value = true
+                val viewModel = viewModel<PersonalInformationViewModel>()
+                PersonalInformationPage(
+                    viewModel = viewModel,
+                    onBackPress = {
+                        Back( screenStack = screenStack, screenState = screenState)
+                    },
+                    navigationController = { screen -> Navigate(
+                        screenStack = screenStack,
+                        screenState = screenState,
+                        page = screen)
+                    },
+                    cleanAppDataController
                 )
             }
         }
