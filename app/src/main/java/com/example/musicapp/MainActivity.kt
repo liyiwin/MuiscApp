@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent{
-            MainView(netWorkViewModel,externalPageNavigationController)
+            MainView(netWorkViewModel,externalPageNavigationController,cleanAppDataController)
        }
         setNetWorkSubject()
         registerNetWorkConnectionStatus()
