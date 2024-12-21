@@ -1,6 +1,8 @@
 package com.example.musicapp.dependencyinjection
 
 import android.content.Context
+import com.example.musicapp.tool.file.IPlayListManager
+import com.example.musicapp.tool.file.PlayListManager
 import com.example.musicapp.tool.network.INetWorkConnectionChecker
 import com.example.musicapp.tool.network.NetWorkConnectionChecker
 import dagger.Module
@@ -19,4 +21,7 @@ class ToolModule {
     @Provides
     fun provideNetWorkConnectionChecker(@ApplicationContext context: Context) : INetWorkConnectionChecker = NetWorkConnectionChecker(context)
 
+    @Singleton
+    @Provides
+    fun providePlayListManage(@ApplicationContext context: Context):IPlayListManager = PlayListManager(context)
 }
