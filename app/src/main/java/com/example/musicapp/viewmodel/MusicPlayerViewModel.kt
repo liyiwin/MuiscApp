@@ -1,7 +1,5 @@
 package com.example.musicapp.viewmodel
 
-import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,7 +28,7 @@ class MusicPlayerViewModel@Inject constructor(
         addSource(currentIndex){update()}
     }
 
-    fun init(){
+    fun loadMusicData(){
         currentIndex.postValue(RouterDataStorage.localTrackIndex)
         playListManager.getTotalTracks(RouterDataStorage.localPlayList!!.name)?.let { totalTracks ->
             val result = ArrayList<MP3Metadata>()

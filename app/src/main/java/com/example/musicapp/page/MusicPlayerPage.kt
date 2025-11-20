@@ -24,6 +24,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,7 +36,6 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -62,14 +62,10 @@ fun  MusicPlayerPage(viewModel: MusicPlayerViewModel,navigationController:(Scree
     val isPause =viewModel.isPause.observeAsState()
     val isCycle = viewModel.isCycle.observeAsState()
     val isRandom = viewModel.isRandom.observeAsState()
-    val isUpdated = remember{ mutableStateOf(false) }
 
-
-    if( ! isUpdated.value ){
-        viewModel.init()
-        isUpdated.value = true
+    LaunchedEffect(Unit){
+        viewModel.loadMusicData()
     }
-
    currentTrack.value?.apply{
            Log.d("MusicPlayerPage","$currentTrack")
           if(musicPlayer.value.checkIsNotSetting()){
