@@ -68,11 +68,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun  RecommendPage(viewModel: RecommendViewModel, navigationController:(screen: Screen)->Unit){
-    if( ! viewModel.getIsInitialized()){
-        viewModel.fetchDailyRecommendedTracks()
-        viewModel.fetchPersonalRecommendedTracks()
-        viewModel.setIsInitialized(true);
-    }
+
 
     RequestStateDialog(viewModel)
 

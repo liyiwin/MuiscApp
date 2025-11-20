@@ -27,14 +27,6 @@ class RecommendViewModel@Inject constructor(
 
     private val personalRecommendedTracks: MutableLiveData<List<Track>> by lazy{ MutableLiveData<List<Track>>(ArrayList()) }
 
-    private  var isInitialized =  false
-
-    fun getIsInitialized() = isInitialized;
-
-    fun setIsInitialized(value:Boolean){
-        isInitialized =value;
-    }
-
     fun getLatestRequestState() = requestState
 
     fun cleanLatestRequestState() = requestState.postValue(RequestState.None(""))
@@ -46,6 +38,13 @@ class RecommendViewModel@Inject constructor(
     fun getLatestPersonalRecommendedTracks() = personalRecommendedTracks
 
     fun cleanLatestPersonalRecommendedTracks() {personalRecommendedTracks.value  = listOf()  }
+
+    init {
+        viewModelScope.launch {
+            fetchDailyRecommendedTracks()
+            fetchPersonalRecommendedTracks()
+        }
+    }
 
     fun fetchDailyRecommendedTracks(){
          requestState.postValue(RequestState.Loading(""))
