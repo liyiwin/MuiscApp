@@ -27,6 +27,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -57,8 +58,11 @@ import com.example.musicapp.viewmodel.state.RequestState
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TrackDetailPage(viewModel: TrackDetailViewModel, onBackPress:()->Unit, navigationController:(screen: Screen)->Unit,externalPageNavigationController:(uri: Uri)->Unit){
-    viewModel.init()
-    viewModel.UpdateArtistTopTracks(RouterDataStorage.getTrack()?.album?.artist?.id?:"")
+
+    LaunchedEffect(RouterDataStorage.getTrack()?.id?:"") {
+        viewModel.updateTrackDetail()
+        viewModel.UpdateArtistTopTracks(RouterDataStorage.getTrack()?.album?.artist?.id?:"")
+    }
 
     RequestStateDialog(viewModel)
 

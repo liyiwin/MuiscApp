@@ -69,7 +69,7 @@ class TrackDetailViewModel@Inject constructor(
     }
 
 
-    fun init(){
+    fun updateTrackDetail(){
         val track = RouterDataStorage.getTrack()
         trackName.postValue(track?.name?:"")
         albumName.postValue(track?.album?.name?:"")
