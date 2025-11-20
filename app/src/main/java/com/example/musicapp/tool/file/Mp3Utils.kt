@@ -29,7 +29,7 @@ object Mp3Utils {
             val mp3 = AudioFileIO.read(mp3File) as MP3File
 
             // 取得標籤 (Tag)
-            val tag: Tag = mp3.tag
+            val tag: Tag = mp3.getTagOrCreateAndSetDefault();
 
             // 設置歌曲名稱和歌手名稱
             tag.setField(FieldKey.TITLE,title)
