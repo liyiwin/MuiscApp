@@ -23,12 +23,12 @@ class HomeViewModel@Inject constructor(private val fetchDataRepository: IFetchDa
 
     private  val requestState: MutableLiveData<RequestState> by lazy{ MutableLiveData<RequestState>(RequestState.None("")) }
 
-    private  var isInitialized =  false
-
-    fun getIsInitialized() = isInitialized;
-
-    fun setIsInitialized(value:Boolean){
-        isInitialized =value;
+    init {
+        viewModelScope.launch {
+           UpdateTotalChartList()
+           UpdateTotalFeaturedPlayListCategories()
+           UpdateTotalHitMusicList()
+        }
     }
 
     fun getTotalChartList() = chartList

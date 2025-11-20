@@ -68,13 +68,6 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @Composable
 fun HomePage(viewModel: HomeViewModel, navigationController:(screen: Screen,pageTitle:String)->Unit){
 
-    if( ! viewModel.getIsInitialized()){
-        viewModel.UpdateTotalChartList()
-        viewModel.UpdateTotalFeaturedPlayListCategories()
-        viewModel.UpdateTotalHitMusicList()
-        viewModel.setIsInitialized(true);
-    }
-
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
 
     RequestStateDialog(viewModel)
