@@ -30,6 +30,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -59,7 +60,11 @@ import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
 fun  FavoriteTracksPage(viewModel: FavoriteTracksViewModel, onBackPress:()->Unit,externalPageNavigationController:(uri: Uri)->Unit) {
-    viewModel.updateTotalFavoriteTracks()
+
+    LaunchedEffect(Unit){
+        viewModel.updateTotalFavoriteTracks()
+    }
+
     Column(
         modifier = Modifier
             .background(Color("#EBE8E8".toColorInt()))
