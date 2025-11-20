@@ -72,8 +72,10 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @Composable
 fun TrackListPage(pageTitle:String , viewModel: TrackListViewModel, onBackPress:()->Unit, navigationController:(screen: Screen)->Unit){
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
-    viewModel.resetData()
-    viewModel.UpdatePlayList()
+    LaunchedEffect(Unit) {
+        viewModel.resetData()
+        viewModel.UpdatePlayList()
+    }
     RequestStateDialog(viewModel)
 
     SwipeRefresh(
